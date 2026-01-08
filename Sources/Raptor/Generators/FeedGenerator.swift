@@ -89,6 +89,10 @@ struct FeedGenerator: Sendable {
     }
 
     func generateRSSHeader() -> String {
+        let localeIdentifier = locale.identifier
+        let localeName = locale
+            .localizedString(forIdentifier: localeIdentifier) ?? localeIdentifier
+
         let feedURL = site.url
             .appending(path: feedConfig.path)
             .absoluteString
@@ -100,7 +104,7 @@ struct FeedGenerator: Sendable {
         xmlns:atom="http://www.w3.org/2005/Atom" \
         xmlns:content="http://purl.org/rss/1.0/modules/content/">\
         <channel>\
-        <title>\(site.name) (\(locale.displayName))</title>\
+        <title>\(site.name) (\(localeName))</title>\
         <description>\(site.description ?? "")</description>\
         <link>\(site.url.absoluteString)</link>\
         <atom:link href="\(feedURL)" rel="self" type="application/rss+xml" />\
