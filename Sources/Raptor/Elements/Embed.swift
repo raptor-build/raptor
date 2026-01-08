@@ -9,8 +9,6 @@ import Foundation
 
 /// Embeds external content such as YouTube videos, Vimeo videos,
 /// Spotify tracks, or arbitrary URLs inside an iframe.
-/// - Important: It is recommended to use `aspectRatio()` with `Embed`
-/// so that it can scale automatically.
 public struct Embed: HTML, LazyLoadable {
     /// A supported external embed source.
     public enum Source: Sendable {
@@ -158,6 +156,8 @@ public struct Embed: HTML, LazyLoadable {
             .attribute("src", url)
             .attribute("title", title)
             .attribute("allow", allowPermissions)
+            .attribute("frameborder", "0")
+            .class("w-100")
             .attributes(attributes)
             .render()
     }
