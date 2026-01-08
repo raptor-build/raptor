@@ -1,0 +1,58 @@
+/* ===== DETAILS / SUMMARY ELEMENT STYLES ===== */
+
+/* Base summary styles */
+.summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.summary * {
+    color: unset;
+}
+
+.summary::-webkit-details-marker,
+.summary::-moz-list-bullet {
+    display: none;
+}
+
+/* ===== SUMMARY INDICATOR STYLES ===== */
+
+/* Custom disclosure indicator using CSS variable */
+.summary::after {
+    content: var(--disc-indicator, "\F64D");
+    font-family: "bootstrap-icons";
+    position: absolute;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    transition: transform 0.2s;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+details.disclosure[open] > .summary::after {
+    content: "\F63B";
+}
+
+/* ===== SUMMARY CONTENT STYLES ===== */
+
+/* Base inline element styles */
+.summary {
+    transition: all var(--anim-duration, 0.3s) var(--anim-easing, cubic-bezier(0.25, 0.46, 0.45, 0.94));
+}
+
+/* Remove focus styles for mouse interactions AND remove default outline */
+.summary:focus:not(:focus-visible) {
+    background-color: inherit;
+    color: inherit;
+}

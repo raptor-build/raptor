@@ -1,0 +1,19 @@
+.grid {
+    display: grid;
+    grid-template-columns: var(--grid-template);
+}
+
+.grid > .grid-item {
+    min-width: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(var(--adaptive-min), 1fr));
+    }
+}
+
+.full-width-grid-item {
+    grid-column: 1 / -1;
+}

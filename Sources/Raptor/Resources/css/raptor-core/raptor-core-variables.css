@@ -1,0 +1,261 @@
+/* ===== CSS VARIABLES & THEME ===== */
+
+/* automatic/manual light mode */
+:root,
+[data-color-scheme="light"] {
+    --accent: var(--r-blue);
+    --r-red: rgb(255, 56, 60);
+    --r-orange: rgb(255, 141, 40);
+    --r-yellow: rgb(255, 204, 0);
+    --r-green: rgb(52, 199, 89);
+    --r-mint: rgb(0, 200, 179);
+    --r-teal: rgb(0, 195, 208);
+    --r-cyan: rgb(0, 192, 232);
+    --r-blue: rgb(0, 136, 255);
+    --r-indigo: rgb(97, 85, 245);
+    --r-purple: rgb(203, 48, 224);
+    --r-pink: rgb(255, 45, 85);
+    --r-brown: rgb(172, 127, 94);
+    --r-gray: rgb(142, 142, 147);
+
+    /* ===== System Gray backgrounds (reversed order) ===== */
+    --bg: rgb(242, 242, 247);          /* systemGray6 */
+    --bg-secondary: rgb(229, 229, 234);/* systemGray5 */
+    --bg-tertiary: rgb(209, 209, 214); /* systemGray4 */
+    --bg-quaternary: rgb(199, 199, 204);/* systemGray3 */
+    --bg-quinary: rgb(174, 174, 178);  /* systemGray2 */
+
+    --bg-secondary-blur: rgba(185, 185, 185, 0.25);
+    --bg-page: white;
+
+    --divider: rgba(0, 0, 0, 0.08);
+    --border: var(--bg-quaternary);
+
+    --dropdown-hover-bg: rgba(60, 60, 67, 0.1);
+    --dropdown-active-bg: color-mix(in srgb, var(--dropdown-hover-bg) 95%, black);
+    --dropdown-hover-fg: var(--fg);
+    --segmented-active-bg: color-mix(in srgb, var(--bg) 25%, white);
+
+
+    --fg-lm: #1C1C1E;
+    --fg-dm: #F2F2F2;
+
+    --fg-inverse: var(--fg-dm);
+
+    --fg: var(--fg-lm);
+    --fg-secondary: #737373;
+    --fg-tertiary: #bfbfbf;
+
+    --anim-duration: 0.2s;
+    --anim-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Semantic accent color scale */
+    --accent-secondary: color-mix(in srgb, var(--accent) 8%, white);
+    --accent-tertiary: color-mix(in srgb, var(--accent) 12%, white);
+    --accent-quaternary: color-mix(in srgb, var(--accent) 16%, white);
+    --accent-quinary: color-mix(in srgb, var(--accent) 20%, white);
+
+    /* Control defaults */
+    --ctrl-padding: 0.5em 0.75em;
+    --ctrl-gap: 0.25em;
+    --field-gap: 1em;
+
+    --font-family: system-ui, Roboto, Helvetica, sans-serif;
+    --font-weight: 400;
+
+    --h1-weight: bold;
+    --h2-weight: bold;
+    --h3-weight: bold;
+    --h4-weight: bold;
+    --h5-weight: bold;
+    --h6-weight: bold;
+    --codeblock-weight: inherit;
+
+    /* Font sizing */
+    --font-size: 1rem;
+    --code-block-font-size: 1rem;
+
+    /* Line heights */
+    --line-height: 1.45;
+    --heading-line-height: 1.25;
+
+    /* Heading weights */
+    --heading-font-weight: 600;
+}
+
+/* manual dark mode */
+[data-color-scheme="dark"] {
+    --r-red: rgb(255, 66, 69);
+    --r-orange: rgb(255, 146, 48);
+    --r-yellow: rgb(255, 214, 0);
+    --r-green: rgb(48, 209, 88);
+    --r-mint: rgb(0, 218, 195);
+    --r-teal: rgb(0, 210, 224);
+    --r-cyan: rgb(60, 211, 254);
+    --r-blue: rgb(0, 145, 255);
+    --r-indigo: rgb(109, 124, 255);
+    --r-purple: rgb(219, 52, 242);
+    --r-pink: rgb(255, 55, 95);
+    --r-brown: rgb(183, 138, 102);
+    --r-gray: rgb(142, 142, 147);
+
+    /* ===== System Gray backgrounds (reversed order) ===== */
+    --bg: rgb(28, 28, 30);             /* systemGray6 (dark) */
+    --bg-secondary: rgb(44, 44, 46);   /* systemGray5 (dark) */
+    --bg-tertiary: rgb(58, 58, 60);    /* systemGray4 (dark) */
+    --bg-quaternary: rgb(72, 72, 74);  /* systemGray3 (dark) */
+    --bg-quinary: rgb(99, 99, 102);    /* systemGray2 (dark) */
+
+    --bg-secondary-blur: rgba(90, 90, 90, 0.25);
+    --bg-page: #0f0f0f;
+    --dropdown-active-bg: color-mix(in srgb, var(--dropdown-hover-bg) 95%, white);
+
+    --divider: rgba(255, 255, 255, 0.12);
+    --border: var(--bg-quaternary);
+    --segmented-active-bg: var(--bg);
+    --dropdown-hover-bg: rgba(255, 255, 255, 0.08);
+
+    --fg-inverse: var(--fg-lm);
+    --fg: var(--fg-dm);
+    --fg-secondary: #8c8c8c;
+    --fg-tertiary: #404040;
+
+    /* Semantic accent color scale - brighter for dark mode */
+    --accent-secondary: color-mix(in srgb, var(--accent) 15%, #18181b);
+    --accent-tertiary: color-mix(in srgb, var(--accent) 22%, #18181b);
+    --accent-quaternary: color-mix(in srgb, var(--accent) 28%, #18181b);
+    --accent-quinary: color-mix(in srgb, var(--accent) 35%, #18181b);
+}
+
+:root {
+  /* Compact (phones / narrow) */
+  --h1-font-size: 2rem;
+  --h2-font-size: 1.75rem;
+  --h3-font-size: 1.375rem;
+  --h4-font-size: 1.125rem;
+  --h5-font-size: 1.0625rem;
+  --h6-font-size: 1rem;
+}
+
+@media (min-width: 575px) {
+  :root {
+    /* Regular (tablets / medium windows) */
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.875rem;
+    --h3-font-size: 1.5rem;
+    --h4-font-size: 1.25rem;
+    --h5-font-size: 1.125rem;
+    --h6-font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* Expanded (desktop / wide layouts) */
+    --h1-font-size: 2.5rem;
+    --h2-font-size: 2rem;
+    --h3-font-size: 1.5rem;
+    --h4-font-size: 1.25rem;
+    --h5-font-size: 1.125rem;
+    --h6-font-size: 1rem;
+  }
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  :root,
+  :root[data-color-scheme="light"] {
+    --r-red: color(display-p3 1 0.219 0.235);
+    --r-orange: color(display-p3 1 0.57 0.18);
+    --r-yellow: color(display-p3 1 0.84 0);
+    --r-green: color(display-p3 0.3 0.78 0.35);
+    --r-mint: color(display-p3 0 0.78 0.7);
+    --r-teal: color(display-p3 0 0.77 0.81);
+    --r-cyan: color(display-p3 0 0.74 0.9);
+    --r-blue: color(display-p3 0 0.53 1);
+    --r-indigo: color(display-p3 0.38 0.34 0.97);
+    --r-purple: color(display-p3 0.85 0.23 0.93);
+    --r-pink: color(display-p3 1 0.26 0.45);
+    --r-brown: color(display-p3 0.68 0.5 0.37);
+    --r-gray: color(display-p3 0.56 0.56 0.58);
+
+    --accent-secondary: color-mix(in display-p3, var(--accent) 8%, white);
+    --accent-tertiary: color-mix(in display-p3, var(--accent) 12%, white);
+    --accent-quaternary: color-mix(in display-p3, var(--accent) 16%, white);
+    --accent-quinary: color-mix(in display-p3, var(--accent) 20%, white);
+  }
+
+  :root[data-color-scheme="dark"] {
+    --r-red: color(display-p3 1 0.27 0.27);
+    --r-orange: color(display-p3 1 0.59 0.21);
+    --r-yellow: color(display-p3 1 0.84 0.1);
+    --r-green: color(display-p3 0.26 0.82 0.38);
+    --r-mint: color(display-p3 0 0.85 0.76);
+    --r-teal: color(display-p3 0 0.82 0.88);
+    --r-cyan: color(display-p3 0.3 0.84 1);
+    --r-blue: color(display-p3 0 0.56 1);
+    --r-indigo: color(display-p3 0.44 0.48 1);
+    --r-purple: color(display-p3 0.9 0.24 0.95);
+    --r-pink: color(display-p3 1 0.28 0.47);
+    --r-brown: color(display-p3 0.72 0.54 0.4);
+    --r-gray: color(display-p3 0.56 0.56 0.58);
+
+    --accent-secondary: color-mix(in display-p3, var(--accent) 15%, #18181b);
+    --accent-tertiary: color-mix(in display-p3, var(--accent) 22%, #18181b);
+    --accent-quaternary: color-mix(in display-p3, var(--accent) 28%, #18181b);
+    --accent-quinary: color-mix(in display-p3, var(--accent) 35%, #18181b);
+  }
+}
+
+/* Allow accent variants to regenerate when --accent is overridden */
+.menu,
+.btn,
+button.btn {
+    --accent-secondary: color-mix(in srgb, var(--accent) 8%, white);
+    --accent-tertiary: color-mix(in srgb, var(--accent) 12%, white);
+    --accent-quaternary: color-mix(in srgb, var(--accent) 16%, white);
+    --accent-quinary: color-mix(in srgb, var(--accent) 20%, white);
+}
+
+[data-color-scheme="dark"] .menu,
+[data-color-scheme="dark"] .btn,
+[data-color-scheme="dark"] button.btn {
+    --accent-secondary: color-mix(in srgb, var(--accent) 15%, #18181b);
+    --accent-tertiary: color-mix(in srgb, var(--accent) 22%, #18181b);
+    --accent-quaternary: color-mix(in srgb, var(--accent) 28%, #18181b);
+    --accent-quinary: color-mix(in srgb, var(--accent) 35%, #18181b);
+}
+
+/* =========================================================
+ DROPDOWN COLOR TOKENS — Global + Auto-Synced
+ ========================================================= */
+
+/* Define mode-dependent variables globally */
+:root {
+    --dropdown-hover-base: rgba(60, 60, 67, 0.1);
+    --dropdown-active-base: black;
+}
+
+html[data-color-scheme="dark"] {
+    --dropdown-hover-base: rgba(255, 255, 255, 0.08);
+    --dropdown-active-base: white;
+}
+
+/* Use them locally — this part always recomputes */
+.menu-dropdown {
+    --dropdown-hover-bg: var(--dropdown-hover-base);
+    --dropdown-active-bg: color-mix(in srgb, var(--dropdown-hover-bg) 95%, var(--dropdown-active-base));
+}
+
+/* =========================================================
+   LIGHT-MODE ONLY: subtle darkening when accent = gray
+   ========================================================= */
+
+:root[data-color-scheme="light"]
+:is(.menu, .btn, button.btn)[style*="--accent: var(--r-gray)"],
+:root:not([data-color-scheme="dark"])
+:is(.menu, .btn, button.btn)[style*="--accent: var(--r-gray)"] {
+    --accent-secondary:  color-mix(in srgb, var(--r-gray) 20%, white);
+    --accent-tertiary:   color-mix(in srgb, var(--r-gray) 24%, white);
+    --accent-quaternary: color-mix(in srgb, var(--r-gray) 28%, white);
+    --accent-quinary:    color-mix(in srgb, var(--r-gray) 32%, white);
+}

@@ -1,0 +1,167 @@
+/* === Base Navbar === */
+.navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: max-content;
+    padding-block: 1rem;
+    z-index: 2001;
+    line-height: 1;
+}
+
+/* === Inner Layout === */
+.nav-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+    padding-block: 0.5em;
+    padding-inline: 1em;
+}
+
+/* Ensure all children behave as inline flex */
+.nav-inner > * {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* === Logo === */
+.nav-logo {
+    flex-shrink: 0;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* === Navigation Items === */
+.nav-items,
+.nav-item {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    order: var(--nav-items-order, 1);
+}
+
+/* === Toggle Button === */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+}
+
+/* === Alignment Helpers === */
+.align-leading  { justify-content: flex-start; }
+.align-center   { justify-content: center; }
+.align-trailing { justify-content: flex-end; }
+
+/* === Mobile Collapse === */
+@media (max-width: 768px) {
+    .nav-inner {
+        flex-wrap: wrap;
+    }
+    .nav-toggle {
+        display: block;
+    }
+    .nav-items {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    .nav-items[data-open="true"] {
+        display: flex;
+    }
+}
+
+/* === Width Modes === */
+.navbar.nav-width-viewport > .nav-inner,
+.nav-width-viewport .navbar > .nav-inner {
+    width: 100%;
+    margin-inline: 0;
+    padding-inline: 1rem;
+}
+
+/* Full bleed inside constrained parents */
+.nav-width-viewport {
+    width: 100dvw;
+    margin-inline: calc(50% - 50dvw);
+}
+
+.navbar > a,
+.navbar a {
+    text-decoration: none;
+    color: var(--fg);
+}
+
+/* Make <li> that contains .spacer flex + grow */
+.nav-inner > li:has(.spacer) {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+/* Let the spacer itself expand fully */
+.nav-inner > li:has(.spacer) > .spacer {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+header.fixed-top {
+    z-index: 1000;
+}
+
+header.fixed-top * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Safari fix: Forces GPU layer for backdrop-filter inside fixed elements to prevent
+   rendering artifacts during overscroll bounce */
+header.fixed-top > nav.navbar[class*="material-"] {
+    transform: translateZ(0);
+    will-change: backdrop-filter;
+    position: relative;
+}
+
+header.fixed-top .navbar {
+    padding-inline: var(--nav-padding, 1rem);
+}
+
+.nav-width-content {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 100%;
+}
+
+/* sm */
+@media (min-width: 575px) {
+    .nav-width-content {
+        max-width: var(--content-max-width, 575px);
+    }
+}
+
+/* md */
+@media (min-width: 768px) {
+    .nav-width-content {
+        max-width: var(--content-max-width, 768px);
+    }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+    .nav-width-content {
+        max-width: var(--content-max-width, 1024px);
+    }
+}
+
+/* xl */
+@media (min-width: 1440px) {
+    .nav-width-content {
+        max-width: var(--content-max-width, 1440px);
+    }
+}

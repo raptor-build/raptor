@@ -1,0 +1,48 @@
+/* ScrollView – infinite scrolling */
+
+.scroll-view {
+    overflow: hidden;
+    width: 100%;
+}
+
+.scroll-track {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    will-change: transform;
+
+    animation-name: scroll-infinite;
+    animation-duration: var(--scroll-duration, 40s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: var(--scroll-direction, normal);
+}
+
+.scroll-group {
+    display: flex;
+    width: var(--scroll-item-size, auto);
+}
+
+.scroll-view-x .scroll-group > .scroll-item {
+    flex: 0 0 var(--scroll-item-size, auto);
+}
+
+/* Horizontal is default */
+@keyframes scroll-infinite {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* Vertical override */
+.scroll-view[data-scroll-axis="vertical"] .scroll-track {
+    animation-name: scroll-infinite-vertical;
+}
+
+@keyframes scroll-infinite-vertical {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+}
+
+.scroll-view:hover .scroll-track {
+    animation-play-state: paused;
+}

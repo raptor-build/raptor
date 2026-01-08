@@ -1,0 +1,61 @@
+/* ------------------------------------------ */
+/* LIST ITEM OUTER CONTAINER (marker layer)   */
+/* ------------------------------------------ */
+.list .list-row {
+    display: block;
+    list-style: none;
+    position: relative;
+    padding-left: 1.75em; /* marker space only */
+    background: var(--list-row-bg);
+    margin-bottom: var(--list-row-spacing);
+
+    border-top: var(--list-row-border-top);
+    border-bottom: var(--list-row-border-bottom);
+    border-left: var(--list-row-border-leading);
+    border-right: var(--list-row-border-trailing);
+
+    border-top-left-radius: var(--list-row-radius-top-leading);
+    border-top-right-radius: var(--list-row-radius-top-trailing);
+    border-bottom-left-radius: var(--list-row-radius-bottom-leading);
+    border-bottom-right-radius: var(--list-row-radius-bottom-trailing);
+}
+
+/* Marker (offset by per-side padding) */
+.list .list-row::before {
+    position: absolute;
+    left: var(--list-row-padding-left, 0);
+    top:  var(--list-row-padding-top, 0);
+}
+
+/* ------------------------------------------ */
+/* INNER ROW WRAPPER — full styling           */
+/* ------------------------------------------ */
+.list .list-row > .list-row-content {
+    padding-top: var(--list-row-padding-top);
+    padding-right: var(--list-row-padding-right);
+    padding-bottom: var(--list-row-padding-bottom);
+    padding-left: var(--list-row-padding-left);
+}
+
+/* ------- ORDERED LISTS ------- */
+.list-ordered {
+    counter-reset: list-item 1;
+}
+
+.list-ordered > .list-row {
+    counter-increment: list-item;
+}
+
+.list-ordered > .list-row::before {
+    content: counter(list-item, var(--list-style-type)) ".";
+}
+
+/* ------- UNORDERED LISTS ------- */
+.list-unordered > .list-row::before {
+    content: var(--list-marker-content, "•");
+}
+
+/* ------- CUSTOM MARKERS ------- */
+.list-custom > .list-row::before {
+    content: var(--list-marker-content);
+}

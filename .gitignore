@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# SwiftPM
+.build/
+.swiftpm/
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcworkspace
+*.xcodeproj/project.xcworkspace/
+
+# Editors
+.vscode/
+.idea/
+
+# Build output
+Build/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Secrets
+.netrc
+
+# Test artifacts (intentional ignores)
+Tests/RaptorTesting/TestWebsitePackage/Build
+Tests/RaptorTesting/TestWebsitePackage/Content/*.md

@@ -1,0 +1,76 @@
+/* ---------------------------------------------------------
+ MATERIAL TOKENS
+ --------------------------------------------------------- */
+:root {
+    /* ---- LIGHT ---- */
+    --mat-light-ultra-thin:   rgba(245, 245, 245, 0.35);
+    --mat-light-thin:         rgba(245, 245, 245, 0.45);
+    --mat-light-regular:      rgba(250, 250, 250, 0.60);
+    --mat-light-thick:        rgba(255, 255, 255, 0.72);
+    --mat-light-ultra-thick:  rgba(255, 255, 255, 0.80);
+
+    /* ---- DARK (deepened) ---- */
+    --mat-dark-ultra-thin:    rgba(15, 15, 15, 0.55);
+    --mat-dark-thin:          rgba(18, 18, 18, 0.65);
+    --mat-dark-regular:       rgba(20, 20, 20, 0.72);
+    --mat-dark-thick:         rgba(23, 23, 23, 0.80);
+    --mat-dark-ultra-thick:   rgba(25, 25, 25, 0.88);
+
+    /* ---- ACTIVE MATERIAL CONTEXT (defaults to light) ---- */
+    --mat-current-ultra-thin:   var(--mat-light-ultra-thin);
+    --mat-current-thin:         var(--mat-light-thin);
+    --mat-current-regular:      var(--mat-light-regular);
+    --mat-current-thick:        var(--mat-light-thick);
+    --mat-current-ultra-thick:  var(--mat-light-ultra-thick);
+
+    /* ---- FILTER SETTINGS ---- */
+    --mat-saturation:  saturate(180%);
+    --mat-brightness:  brightness(1.06);
+    --mat-contrast:    contrast(1.0);
+}
+
+/* ---------------------------------------------------------
+ DARK MODE VARIABLE SWAP (low specificity)
+ --------------------------------------------------------- */
+
+:root[data-color-scheme*="dark"],
+[data-color-scheme*="dark"] {
+    --mat-current-ultra-thin:   var(--mat-dark-ultra-thin);
+    --mat-current-thin:         var(--mat-dark-thin);
+    --mat-current-regular:      var(--mat-dark-regular);
+    --mat-current-thick:        var(--mat-dark-thick);
+    --mat-current-ultra-thick:  var(--mat-dark-ultra-thick);
+
+    --mat-saturation:  saturate(160%);
+    --mat-brightness:  brightness(0.91);
+    --mat-contrast:    contrast(1.06);
+}
+
+/* ---------------------------------------------------------
+ MATERIAL CLASSES (single-source, low specificity)
+ --------------------------------------------------------- */
+
+.material-ultra-thin {
+    background-color: var(--mat-current-ultra-thin);
+    backdrop-filter: blur(8px) var(--mat-saturation) var(--mat-brightness) var(--mat-contrast);
+}
+
+.material-thin {
+    background-color: var(--mat-current-thin);
+    backdrop-filter: blur(12px) var(--mat-saturation) var(--mat-brightness) var(--mat-contrast);
+}
+
+.material-regular {
+    background-color: var(--mat-current-regular);
+    backdrop-filter: blur(20px) var(--mat-saturation) var(--mat-brightness) var(--mat-contrast);
+}
+
+.material-thick {
+    background-color: var(--mat-current-thick);
+    backdrop-filter: blur(35px) var(--mat-saturation) var(--mat-brightness) var(--mat-contrast);
+}
+
+.material-ultra-thick {
+    background-color: var(--mat-current-ultra-thick);
+    backdrop-filter: blur(50px) var(--mat-saturation) var(--mat-brightness) var(--mat-contrast);
+}

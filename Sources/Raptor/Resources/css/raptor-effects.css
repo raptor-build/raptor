@@ -1,0 +1,113 @@
+/* ---------------------------------------------------------
+ BLUR EDGES
+ --------------------------------------------------------- */
+
+.blur-edge {
+  position: relative;
+  backdrop-filter: blur(var(--blur-radius, 20px));
+  -webkit-backdrop-filter: blur(var(--blur-radius, 20px));
+}
+
+.blur-edge-top {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+}
+
+.blur-edge-bottom {
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+}
+
+.blur-edge-leading {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+}
+
+.blur-edge-trailing {
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+  mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black var(--blur-edge-size, 20%)
+  );
+}
+
+.blur-edge-horizontal {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--blur-edge-size, 20%),
+    black calc(100% - var(--blur-edge-size, 20%)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--blur-edge-size, 20%),
+    black calc(100% - var(--blur-edge-size, 20%)),
+    transparent 100%
+  );
+}
+
+.blur-edge-vertical {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--blur-edge-size, 20%),
+    black calc(100% - var(--blur-edge-size, 20%)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--blur-edge-size, 20%),
+    black calc(100% - var(--blur-edge-size, 20%)),
+    transparent 100%
+  );
+}
+
+.blur-edge-all {
+  -webkit-mask-image:
+    linear-gradient(to right,
+      transparent 0%,
+      black var(--blur-edge-size),
+      black calc(100% - var(--blur-edge-size)),
+      transparent 100%
+    ),
+    linear-gradient(to bottom,
+      transparent 0%,
+      black var(--blur-edge-size),
+      black calc(100% - var(--blur-edge-size)),
+      transparent 100%
+    );
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+}

@@ -1,0 +1,282 @@
+/* ===========================================
+   MARKDOWN TYPOGRAPHY & SPACING
+   =========================================== */
+
+/*
+ Core principle:
+ ----------------
+ - `.markdown` defines ALL default content spacing
+ - `.widget .markdown` explicitly resets it
+ - UI components (menus, dropdowns, etc.) must NOT be affected
+*/
+
+/* ===========================================
+   Font Size Utilities (Bootstrap compatible)
+   =========================================== */
+
+/* Largest, similar to <h1> */
+.text-h1 {
+  font-size: var(--h1-font-size);
+  line-height: var(--h1-line-height, var(--headings-line-height, normal));
+}
+
+/* Slightly smaller, like <h2> */
+.text-h2 {
+  font-size: var(--h2-font-size);
+  line-height: var(--h2-line-height, var(--headings-line-height, normal));
+}
+
+/* Medium-large, like <h3> */
+.text-h3 {
+  font-size: var(--h3-font-size);
+  line-height: var(--h3-line-height, var(--headings-line-height, normal));
+}
+
+/* Heading-ish */
+.text-h4 {
+  font-size: var(--h4-font-size);
+  line-height: var(--h4-line-height, var(--headings-line-height, normal));
+}
+
+/* Subheading */
+.text-h5 {
+  font-size: var(--h5-font-size);
+  line-height: var(--h5-line-height, var(--headings-line-height, normal));
+}
+
+/* Body text */
+.text-h6 {
+  font-size: var(--h6-font-size);
+  line-height: var(--h6-line-height, var(--headings-line-height, normal));
+}
+
+.text-small   { font-size: 0.9rem; }
+.text-xSmall  { font-size: 0.8rem; }
+.text-xxSmall { font-size: 0.7rem; }
+.text-xxxSmall{ font-size: 0.6rem; }
+
+/* ===========================================
+   Utilities
+   =========================================== */
+
+.line-clamp {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--max-line-length, 1);
+}
+
+.line-clamp-none {
+    overflow: visible;
+    display: block;
+    -webkit-box-orient: horizontal;
+    -webkit-line-clamp: unset;
+}
+
+/* ===========================================
+   Definition Lists
+   =========================================== */
+
+.markdown dt {
+    margin-bottom: 0.25em;
+}
+
+.markdown dd {
+    margin-inline-start: var(--definition-group-indent, 2.5em);
+    margin-bottom: 1em;
+}
+
+.markdown > a {
+    display: block;
+}
+
+/* ===========================================
+   Paragraph-Level Spacing
+   =========================================== */
+
+/* Top-level content spacing */
+.markdown dl,
+.markdown p,
+.markdown > a,
+.markdown pre,
+.markdown hr,
+.markdown table,
+.markdown > div {
+    margin-top: var(--paragraph-margin-top);
+    margin-right: var(--paragraph-margin-right);
+    margin-left: var(--paragraph-margin-left);
+}
+
+.markdown dl,
+.markdown p:not(:last-child),
+.markdown > a:not(:last-child),
+.markdown pre:not(:last-child),
+.markdown hr:not(:last-child),
+.markdown table:not(:last-child),
+.markdown > div:not(:last-child) {
+    margin-bottom: var(--paragraph-margin-bottom, 1.2em);
+}
+
+/* Widgets behave like block content, but avoid double-spacing */
+.widget:not(:has(+ .widget)) {
+    margin-bottom: var(--paragraph-margin-bottom, 1.2em);
+}
+
+/* Code blocks inside list items */
+.markdown li pre {
+    margin-top: 1.2em;
+}
+
+/* ===========================================
+   Headings
+   =========================================== */
+
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+    margin-top: var(--heading-margin-top, 1.2em);
+    margin-bottom: var(--heading-margin-bottom, 0.5em);
+    margin-right: var(--heading-margin-right);
+    margin-left: var(--heading-margin-left);
+}
+
+/* When a rule precedes a heading, let the rule carry spacing */
+.markdown hr + h2,
+.markdown hr + h3,
+.markdown hr + h4,
+.markdown hr + h5,
+.markdown hr + h6 {
+    margin-top: 0;
+}
+
+/* Extra breathing room before section breaks */
+.markdown hr:has(+ h2),
+.markdown hr:has(+ h3),
+.markdown hr:has(+ h4),
+.markdown hr:has(+ h5),
+.markdown hr:has(+ h6) {
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+}
+
+/* ===========================================
+   Lists (Markdown ONLY)
+   =========================================== */
+
+/*
+ IMPORTANT:
+ ----------
+ These rules intentionally DO NOT apply inside widgets.
+ UI components frequently use <ul>/<li> for structure.
+*/
+
+.markdown .list {
+    padding-inline-start: 0;
+}
+
+/* Undo our reset */
+.markdown :is(ul, ol):not(:where(.widget, .widget *)) {
+    padding: revert;
+}
+
+.markdown li:not(:where(.widget *)) {
+    margin-bottom: 1em;
+}
+
+.markdown li > :is(ul, ol):not(:where(.widget *)) {
+    margin-top: 1em;
+}
+
+/* ===========================================
+   Tables
+   =========================================== */
+
+.markdown table td {
+    padding-inline: 0;
+}
+
+/* ===========================================
+   Widget Opt-Out
+   =========================================== */
+
+/*
+ Widgets explicitly reset Markdown spacing.
+ This prevents content rules from breaking UI components
+ like dropdown menus, nav lists, and control groups.
+*/
+
+.markdown .widget p,
+.markdown .widget pre,
+.markdown .widget hr,
+.markdown .widget table,
+.markdown .widget ul,
+.markdown .widget ol,
+.markdown .widget li,
+.markdown .widget h1,
+.markdown .widget h2,
+.markdown .widget h3,
+.markdown .widget h4,
+.markdown .widget h5,
+.markdown .widget h6 {
+    margin: 0;
+}
+
+.markdown .widget ul:not(.menu-dropdown),
+.markdown .widget ol:not(.menu-dropdown) {
+  padding: 0;
+}
+
+/* Tables inside widgets keep compact spacing */
+.markdown table.widget td {
+    padding: 0.6rem 0.75rem;
+}
+
+/* ===========================================
+   Text Alignment Utilities
+   =========================================== */
+
+.text-start  { text-align: start; }
+.text-center { text-align: center; }
+.text-end    { text-align: end; }
+
+/* ===========================================
+   Font Scale Utilities (fs-*)
+   =========================================== */
+
+.fs-1 {
+    font-size: var(--h1-font-size, clamp(2rem, 1.5rem + 1vw, 2.25rem));
+    font-weight: var(--h1-weight, inherit);
+    line-height: var(--h1-line-height, var(--headings-line-height, normal));
+}
+
+.fs-2 {
+    font-size: var(--h2-font-size, clamp(1.75rem, 1.5rem + 0.5vw, 1.875rem));
+    font-weight: var(--h2-weight, inherit);
+    line-height: var(--h2-line-height, var(--headings-line-height, normal));
+}
+
+.fs-3 {
+    font-size: var(--h3-font-size, clamp(1.375rem, 1.25rem + 0.5vw, 1.5rem));
+    font-weight: var(--h3-weight, inherit);
+    line-height: var(--h3-line-height, var(--headings-line-height, normal));
+}
+
+.fs-4 {
+    font-size: var(--h4-font-size, clamp(1.125rem, 1rem + 0.5vw, 1.25rem));
+    font-weight: var(--h4-weight, inherit);
+    line-height: var(--h4-line-height, var(--headings-line-height, normal));
+}
+
+.fs-5 {
+    font-size: var(--h5-font-size, 1.125rem);
+    font-weight: var(--h5-weight, inherit);
+    line-height: var(--h5-line-height, var(--headings-line-height, normal));
+}
+
+.fs-6 {
+    font-size: var(--h6-font-size, 1rem);
+    font-weight: var(--h6-weight, inherit);
+    line-height: var(--h6-line-height, var(--headings-line-height, normal));
+}

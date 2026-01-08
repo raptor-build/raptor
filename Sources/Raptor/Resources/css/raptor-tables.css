@@ -1,0 +1,137 @@
+/* --------------------------------------------- */
+/* TABLE ROOT                                     */
+/* --------------------------------------------- */
+table {
+    --table-bg: transparent;
+    --table-row-bg: transparent;
+
+    /* Stripe colors are relative to text color */
+    --table-stripe-bg: color-mix(in srgb, currentColor 7.5%, transparent);
+    --table-separator-color: color-mix(in srgb, currentColor 20%, transparent);
+
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--table-bg);
+}
+
+/* --------------------------------------------- */
+/* BASE CELL STYLE                                */
+/* --------------------------------------------- */
+table td {
+    padding: 0.6rem 0.75rem;
+}
+
+table td,
+table th {
+    background: var(--table-row-bg);
+    transition: background 0.18s ease;
+}
+
+/* Force headers left-aligned */
+table th {
+    padding: 0;
+    text-align: left;
+}
+
+/* Make header content fill the entire cell box */
+table th > * {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0.6rem 0.75rem;
+}
+
+/* --------------------------------------------- */
+/* SEPARATORS (optional)                          */
+/* --------------------------------------------- */
+table:not([data-table-separators="false"]) td,
+table:not([data-table-separators="false"]) th {
+    border-bottom: 1px solid var(--table-separator-color);
+}
+
+/* --------------------------------------------- */
+/* STRIPED ROWS — rounded only on row edges      */
+/* --------------------------------------------- */
+.table-striped-rows tbody tr:nth-of-type(odd) td,
+.table-striped-rows tbody tr:nth-of-type(odd) th {
+    background: var(--table-stripe-bg);
+}
+
+/* Rounded LEFT corners of striped rows */
+.table-striped-rows tbody tr:nth-of-type(odd) td:first-child,
+.table-striped-rows tbody tr:nth-of-type(odd) th:first-child {
+    border-top-left-radius: var(--table-cell-radius);
+    border-bottom-left-radius: var(--table-cell-radius);
+}
+
+/* Rounded RIGHT corners of striped rows */
+.table-striped-rows tbody tr:nth-of-type(odd) td:last-child,
+.table-striped-rows tbody tr:nth-of-type(odd) th:last-child {
+    border-top-right-radius: var(--table-cell-radius);
+    border-bottom-right-radius: var(--table-cell-radius);
+}
+
+/* --------------------------------------------- */
+/* STRIPED COLUMNS — rounded only on table edges */
+/* --------------------------------------------- */
+
+/* Alternating column backgrounds */
+.table-striped-columns td:nth-child(even),
+.table-striped-columns th:nth-child(even) {
+    background: var(--table-stripe-bg);
+}
+
+/* ------------------------------------------------------ */
+/* CASE 1: TABLE HAS HEADER (.header-table present)       */
+/* ------------------------------------------------------ */
+
+/* Rounded TOP corners belong to the header, not the rows */
+.header-table.table-striped-columns thead th:nth-child(even) {
+    border-top-left-radius: var(--table-cell-radius);
+    border-top-right-radius: var(--table-cell-radius);
+}
+
+/* Ensure data rows DO NOT receive top rounding */
+.header-table.table-striped-columns tbody tr:first-child td:nth-child(even) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* Rounded BOTTOM corners still apply to last striped cell */
+.header-table.table-striped-columns tbody tr:last-child td:nth-child(even) {
+    border-bottom-left-radius: var(--table-cell-radius);
+    border-bottom-right-radius: var(--table-cell-radius);
+}
+
+/* ------------------------------------------------------ */
+/* CASE 2: TABLE HAS NO HEADER (normal table)             */
+/* ------------------------------------------------------ */
+
+/* First striped data row should get TOP rounding */
+.table-striped-columns:not(.header-table)
+tbody tr:first-child td:nth-child(even) {
+    border-top-left-radius: var(--table-cell-radius);
+    border-top-right-radius: var(--table-cell-radius);
+}
+
+/* Last striped data row: bottom corners */
+.table-striped-columns:not(.header-table)
+tbody tr:last-child td:nth-child(even) {
+    border-bottom-left-radius: var(--table-cell-radius);
+    border-bottom-right-radius: var(--table-cell-radius);
+}
+
+/* Remove last separator */
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* --------------------------------------------- */
+/* FILTER INPUT                                   */
+/* --------------------------------------------- */
+.filter-field {
+    width: 100%;
+    min-height: 2.5em;
+    box-sizing: border-box;
+}

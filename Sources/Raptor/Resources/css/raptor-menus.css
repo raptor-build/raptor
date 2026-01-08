@@ -1,0 +1,435 @@
+/* =========================================================
+ DROPDOWN MENU COMPONENT (TOKEN-COMPATIBLE)
+ ========================================================= */
+
+/* --- Base Menu Container --- */
+.menu {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-menu {
+    height: 100%;
+}
+
+/* --- Dropdown Container --- */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    margin: 0.25rem 0 0 0;
+    z-index: 2;
+    width: max-content;
+    border-radius: 25px;
+    border: 1px solid var(--border);
+    opacity: 0;
+    padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    /* Animation + transforms */
+    --alignment-transform: none;
+    --anim-transform-hidden: scale(0.95);
+    --anim-transform-visible: scale(1);
+    --anim-transform-base: var(--anim-transform-hidden);
+    --anim-transform-effective: var(--alignment-transform) var(--anim-transform-base);
+    transform: var(--anim-transform-effective);
+    transform-origin: var(--anim-transform-origin, top center);
+    transition: opacity var(--anim-duration, 0.15s) cubic-bezier(0.4, 0, 0.2, 1),
+    transform var(--anim-duration, 0.15s) cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Button variable defaults */
+    --btn-bg: transparent;
+    --btn-fg: var(--fg);
+    --btn-border: none;
+    --btn-hover-bg: var(--accent-tertiary);
+    --btn-active-bg: var(--accent-quaternary);
+}
+
+/* --- Open State --- */
+.menu-dropdown[data-show="true"] {
+    display: block;
+    opacity: 1;
+    --anim-transform-base: var(--anim-transform-visible);
+    --anim-transform-effective: var(--alignment-transform) var(--anim-transform-base);
+    transform: var(--anim-transform-effective);
+}
+
+/* =========================================================
+ MENU ITEM STRUCTURE
+ ========================================================= */
+
+.menu-dropdown,
+.menu-dropdown * {
+    color: inherit;
+}
+
+/* --- Links --- */
+.menu-dropdown a {
+    display: block;
+    text-decoration: none;
+}
+
+/*/* --- Generic Children --- */*/
+.menu-dropdown > *,
+.menu-dropdown li > * {
+    display: block;
+}
+
+.menu-dropdown > li {
+    list-style: none;
+}
+
+/* --- Divider --- */
+.menu-dropdown hr {
+    border: none;
+    border-top: 1px solid var(--divider, color-mix(in srgb, var(--fg) 15%, transparent));
+    opacity: var(--divider-opacity, 1);
+    margin: 0.25rem 0; /* Add vertical spacing */
+}
+
+/* =========================================================
+ MENU GROUP (SPLIT BUTTON)
+ ========================================================= */
+
+.menu-group {
+    display: inline-flex;
+    height: 100%;
+    background: transparent;
+    border: none;
+}
+
+.menu-group-action {
+    flex: 1;
+}
+
+.menu-group > .menu-group-action {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+    padding-right: 0.2em;
+}
+
+.menu-group > .menu-group-toggle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 0.2rem;
+    border-left: none;
+}
+
+/* --- Focus --- */
+.menu-group > button:focus-visible {
+    position: relative;
+    z-index: 3;
+    outline: 2px solid AccentColor;
+}
+
+/* =========================================================
+ ALIGNMENT VARIANTS (TOP, BOTTOM, LEADING, ETC.)
+ ========================================================= */
+
+.menu.dropdown-align-top > .menu-dropdown {
+    inset: auto auto 100% 50%;
+    --alignment-transform: translateX(-50%);
+    margin-bottom: 0.25rem;
+}
+
+.menu.dropdown-align-bottom > .menu-dropdown {
+    top: 100%;
+    left: 50%;
+    --alignment-transform: translateX(-50%);
+    transform-origin: top center;
+    margin-top: 0.25rem;
+}
+
+.menu.dropdown-align-leading > .menu-dropdown {
+    inset: 50% 100% auto auto;
+    --alignment-transform: translateY(-50%);
+    margin-right: 0.25rem;
+}
+
+.menu.dropdown-align-trailing > .menu-dropdown {
+    inset: 50% auto auto 100%;
+    --alignment-transform: translateY(-50%);
+    margin-left: 0.25rem;
+}
+
+.menu.dropdown-align-topLeading > .menu-dropdown {
+    inset: auto auto 100% 0;
+    margin-bottom: 0.25rem;
+}
+
+.menu.dropdown-align-topTrailing > .menu-dropdown {
+    inset: auto 0 100% auto;
+    margin-bottom: 0.25rem;
+}
+
+.menu.dropdown-align-bottomLeading > .menu-dropdown {
+    inset: 100% auto auto 0;
+    margin-top: 0.25rem;
+}
+
+.menu.dropdown-align-bottomTrailing > .menu-dropdown {
+    inset: 100% 0 auto auto;
+    margin-top: 0.25rem;
+}
+
+.menu.dropdown-align-center > .menu-dropdown {
+    inset: 50% auto auto 50%;
+    --alignment-transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+/* =========================================================
+ NESTED MENUS — ALIGNMENT + CONSISTENCY
+ ========================================================= */
+
+.menu-dropdown > li > .menu {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    border: solid transparent;
+}
+
+.menu-dropdown > li > .menu > [data-toggle="dropdown"] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    border: none !important;
+    font: inherit;
+    text-align: left;
+    corner-shape: var(--btn-corner-shape, superellipse(1.25));
+}
+
+.menu-dropdown > li > .menu > .menu-dropdown {
+    top: 0;
+    left: 100%;
+    margin-left: 0.25rem;
+}
+
+/* =========================================================
+ SPLIT MENUS INSIDE DROPDOWN — ITEM STYLING
+ ========================================================= */
+
+.menu-dropdown .menu-group > .menu-group-action {
+    flex: 3;
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+    border: none;
+    align-items: center;
+    display: flex;
+    gap: var(--ctrl-gap, 0.5rem);
+}
+
+.menu-dropdown .menu-group > .menu-group-toggle {
+    flex: 1;
+}
+
+/* =========================================================
+ CARET / CARROT ICONS
+ ========================================================= */
+
+.menu-dropdown .menu-group > .menu-group-toggle.btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    text-align: center;
+    border-left: 1px solid var(--divider, color-mix(in srgb, var(--fg) 15%, transparent));
+}
+
+.menu:not(.carrot-up):not(.carrot-left):not(.carrot-right):not(.carrot-down)
+.menu-group-toggle::after {
+    content: "▾"; /* default caret */
+}
+
+/* Direction overrides */
+.menu-dropdown .menu.carrot-up .menu-group-toggle::after { content: "▴"; }
+.menu-dropdown .menu.carrot-down .menu-group-toggle::after { content: "▾"; }
+.menu-dropdown .menu.carrot-left .menu-group-toggle::after { content: "◂"; }
+.menu-dropdown .menu.carrot-right .menu-group-toggle::after { content: "▸"; }
+
+.menu.carrot-up .menu-group-toggle::after { content: "▴"; }
+.menu.carrot-down .menu-group-toggle::after { content: "▾"; }
+.menu.carrot-left .menu-group-toggle::after { content: "◂"; }
+.menu.carrot-right .menu-group-toggle::after { content: "▸"; }
+
+/* =========================================================
+ MISC — MARGIN ADJUSTMENTS
+ ========================================================= */
+
+.menu-dropdown[data-align="left"] {
+    margin-left: 0;
+    margin-right: 5px; /* gap when flipped */
+}
+
+/* =========================================================
+ INTELLIGENT FOCUS RING (MATCHES HOVER CORNERS)
+ ========================================================= */
+
+.menu-dropdown :is(a, button.btn):focus-visible {
+    --focus-outline-width: 2px;
+    outline: 2px solid AccentColor;
+    outline-offset: -2px;
+    background: var(--accent-tertiary);
+    position: relative;
+    z-index: 2;
+    border: 0;
+}
+
+/* Minimal visual style update to .menu-dropdown */
+
+.menu-dropdown button,
+.menu-dropdown li > button,
+.menu-dropdown > li > a {
+    display: inline-flex;
+    justify-content: flex-start;
+    text-align: start;
+    width: 100%;
+
+    color: inherit;
+    border: none !important;
+    border-radius: var(--dropdown-item-corner-radius, 9999px);
+    font: inherit;
+    corner-shape: var(--btn-corner-shape, superellipse(1.25));
+
+    --btn-bg: transparent;
+    --btn-fg: var(--dropdown-hover-fg);
+    --btn-hover-bg: var(--dropdown-hover-bg);
+    --btn-active-bg: var(--dropdown-hover-bg);
+}
+
+.menu-dropdown > li:not(:last-child) {
+    margin-bottom: 0.25em; /* adjust to taste (e.g. 0.2rem–0.4rem) */
+}
+
+.menu-dropdown li > *:not(hr) {
+    padding: 0.5em 1em;
+}
+
+/* =========================================================
+  CONTROL GROUPS INSIDE DROPDOWNS — ROUNDED RECTS
+  ========================================================= */
+
+/* Capsule corners only when menu-group is inside a menu dropdown */
+.menu-dropdown .menu-group > .menu-group-action {
+  border-top-left-radius: var(--dropdown-item-corner-radius, 9999px);
+  border-bottom-left-radius: var(--dropdown-item-corner-radius, 9999px);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.menu-dropdown .menu-group > .menu-group-toggle {
+  border-top-right-radius: var(--dropdown-item-corner-radius, 9999px);
+  border-bottom-right-radius: var(--dropdown-item-corner-radius, 9999px);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Icon on the right ONLY for .menu-dropdown items NOT in .ctrl-group */
+.menu-dropdown button.btn:has(> .btn-icon):not(.ctrl-group .btn),
+.menu-dropdown .menu-group-action.btn:has(> .btn-icon):not(.ctrl-group .btn) {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: var(--ctrl-gap, 0.5rem);
+}
+
+.menu-dropdown .ctrl-group {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    margin: 0;
+    padding: 0; /* edge-to-edge alignment */
+    border-radius: 0;
+}
+
+/* Control items */
+.menu-dropdown .ctrl-group > * {
+    flex: 1 1 auto;
+    margin: 0;
+    border-radius: 15px;
+    padding-top: 0.75rem;   /* match dropdown link vertical rhythm */
+    padding-bottom: 0.75rem;
+}
+
+/* For buttons inside control groups within dropdowns */
+.menu-dropdown .ctrl-group .btn {
+    display: flex;
+    flex-direction: column;   /* icon above label */
+    text-align: center;
+    line-height: 1.2;
+    border-radius: var(--dropdown-item-corner-radius, 0.5rem);
+    --btn-bg: transparent;
+    --btn-fg: var(--dropdown-hover-fg);
+    --btn-hover-bg: var(--dropdown-hover-bg);
+    --btn-active-bg: var(--dropdown-hover-bg);
+}
+
+.menu-dropdown .menu > button,
+.menu-dropdown .menu > .menu-group > button {
+    --btn-bg: transparent;
+    --btn-fg: var(--dropdown-hover-fg);
+    --btn-hover-bg: var(--dropdown-hover-bg);
+    --btn-active-bg: var(--dropdown-hover-bg);
+}
+
+
+/* =========================================================
+ INTERACTION STATES
+ ========================================================= */
+
+/* --- Hover / Active / Focus --- */
+.menu-dropdown a:hover,
+.menu-dropdown a:focus-visible,
+.menu-dropdown button:hover,
+.menu-dropdown button:focus-visible {
+    background: var(--dropdown-hover-bg);
+}
+
+.menu-dropdown a:active,
+.menu-dropdown button:active {
+    background: var(--dropdown-active-bg);
+}
+
+.menu-dropdown a:focus {
+    outline: none;
+}
+
+.menu-dropdown a:focus-visible {
+    outline: 2px solid AccentColor;
+}
+
+/* --- Active (Current Page) --- */
+.menu-dropdown a[data-active="true"] {
+    background: var(--dropdown-hover-bg);
+    font-weight: 600;
+    color: var(--dropdown-hover-fg, var(--fg));
+}
+
+.menu-dropdown .ctrl-group .btn-icon {
+    margin-left: 0;
+    margin-bottom: 0.35em;
+}
+
+.menu-dropdown .ctrl-group .btn-label,
+.menu-dropdown .btn-label {
+    margin-left: 0;
+}
+
+/* Make dropdown menu header stretch across width */
+.menu-group,
+.menu-group .menu-group-action {
+    width: 100%;
+}

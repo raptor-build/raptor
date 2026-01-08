@@ -1,0 +1,194 @@
+/* ===== DIALOG ===== */
+
+dialog {
+    border: none;
+    background: transparent;
+}
+
+dialog::backdrop {
+    background-color: var(--presentation-backdrop, rgba(0, 0, 0, 0.25));
+    background-image: var(--presentation-backdrop-image, none);
+    backdrop-filter: var(--presentation-backdrop-filter, none);
+}
+
+/* ===== POPOVER ===== */
+
+/* Base popover styles */
+[popover] {
+    position: absolute;
+    border: none;
+    background: none;
+}
+
+/* Hide default backdrop */
+[popover]::backdrop {
+    background-color: var(--presentation-backdrop);
+    background-image: var(--presentation-backdrop-image, none);
+    backdrop-filter: var(--presentation-backdrop-filter, none);
+}
+
+/* ===== PRESENTATION ALIGNMENT (works for both dialog and popover) ===== */
+
+/* Base alignment styles */
+[popover],
+dialog[open],
+[popover]:popover-open {
+    position: fixed;
+    inset: unset;
+    margin: 0;
+}
+
+/* Edge alignments - centered on edge */
+dialog.presentation-align-top,
+dialog.presentation-align-top[open],
+[popover].presentation-align-top,
+[popover].presentation-align-top:popover-open {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+dialog.presentation-align-bottom,
+dialog.presentation-align-bottom[open],
+[popover].presentation-align-bottom,
+[popover].presentation-align-bottom:popover-open {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+dialog.presentation-align-left,
+dialog.presentation-align-left[open],
+[popover].presentation-align-left,
+[popover].presentation-align-left:popover-open {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+dialog.presentation-align-right,
+dialog.presentation-align-right[open],
+[popover].presentation-align-right,
+[popover].presentation-align-right:popover-open {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Corner alignments */
+dialog.presentation-align-topLeading,
+dialog.presentation-align-topLeading[open],
+[popover].presentation-align-topLeading,
+[popover].presentation-align-topLeading:popover-open {
+    top: 10px;
+    left: 10px;
+}
+
+dialog.presentation-align-topTrailing,
+dialog.presentation-align-topTrailing[open],
+[popover].presentation-align-topTrailing,
+[popover].presentation-align-topTrailing:popover-open {
+    top: 10px;
+    right: 10px;
+}
+
+dialog.presentation-align-bottomLeading,
+dialog.presentation-align-bottomLeading[open],
+[popover].presentation-align-bottomLeading,
+[popover].presentation-align-bottomLeading:popover-open {
+    bottom: 10px;
+    left: 10px;
+}
+
+dialog.presentation-align-bottomTrailing,
+dialog.presentation-align-bottomTrailing[open],
+[popover].presentation-align-bottomTrailing,
+[popover].presentation-align-bottomTrailing:popover-open {
+    bottom: 10px;
+    right: 10px;
+}
+
+/* Side alignments - flush to edge */
+dialog.presentation-align-leading,
+dialog.presentation-align-leading[open],
+[popover].presentation-align-leading,
+[popover].presentation-align-leading:popover-open {
+    left: 10px;
+    top: 10px;
+}
+
+dialog.presentation-align-trailing,
+dialog.presentation-align-trailing[open],
+[popover].presentation-align-trailing,
+[popover].presentation-align-trailing:popover-open {
+    right: 10px;
+    top: 10px;
+}
+
+/* Center alignment */
+dialog.presentation-align-center,
+dialog.presentation-align-center[open],
+[popover].presentation-align-center,
+[popover].presentation-align-center:popover-open {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ===== POPOVER ANCHOR POSITIONING ===== */
+
+[class^="popover-anchor-"] {
+    position-anchor: var(--anchor-id);
+    position: absolute;
+}
+
+.popover-anchor-top {
+    bottom: anchor(top);
+    position-area: top;
+}
+
+.popover-anchor-bottom {
+    top: anchor(bottom);
+    position-area: bottom;
+}
+
+.popover-anchor-left {
+    right: anchor(left);
+    position-area: left;
+}
+
+.popover-anchor-right {
+    left: anchor(right);
+    position-area: right;
+}
+
+.popover-anchor-top-left {
+    bottom: anchor(top);
+    right: anchor(left);
+    position-area: top-start;
+}
+
+.popover-anchor-top-right {
+    bottom: anchor(top);
+    left: anchor(right);
+    position-area: top-end;
+}
+
+.popover-anchor-bottom-left {
+    top: anchor(bottom);
+    right: anchor(left);
+    position-area: bottom-start;
+}
+
+.popover-anchor-bottom-right {
+    top: anchor(bottom);
+    left: anchor(right);
+    position-area: bottom-end;
+}
+
+.popover-anchor-center {
+    top: anchor(center);
+    left: anchor(center);
+    position-area: center;
+    transform: translate(-50%, -50%);
+}

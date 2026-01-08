@@ -1,0 +1,19 @@
+/* Fine-tune Prism's line highlight alignment so text and line numbers look centered. */
+.line-highlight,
+.line-numbers-rows > span:before {
+    transform: translateY(var(--code-line-highlight-offset, 0));
+}
+
+.no-show-invisibles .token.space:before,
+.no-show-invisibles .token.tab:before,
+.no-show-invisibles .token.lf:before,
+.no-show-invisibles .token.cr:before {
+  display: none !important;
+}
+
+pre[class*="language-"]{
+  padding:1em;
+  margin:.5em 0;
+  overflow:auto;
+  border-radius:.3em
+}

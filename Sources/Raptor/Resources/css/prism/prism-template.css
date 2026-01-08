@@ -1,0 +1,198 @@
+/* Base */
+[data-highlighter-theme] pre[class*="language-"],
+pre[data-highlighter-theme][class*="language-"] {
+  background: var(--hl-bg);
+  color: var(--hl-plain);
+  font-family: var(--monospace-font-family, ui-monospace, monospace);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"],
+code[data-inline-highlighter-theme]:not(pre code) {
+  color: var(--inline-hl-plain);
+  background: var(--inline-hl-bg) !important;
+  font-family: var(--monospace-font-family, ui-monospace, monospace);
+  padding: 0.15em 0.35em;
+  border-radius: 0.25em;
+}
+
+/* Tokens: Block Code */
+[data-highlighter-theme] pre[class*="language-"] .token.comment,
+pre[data-highlighter-theme][class*="language-"] .token.comment {
+  color: var(--hl-comment);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.keyword,
+pre[data-highlighter-theme][class*="language-"] .token.keyword {
+  color: var(--hl-keyword);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.string,
+pre[data-highlighter-theme][class*="language-"] .token.string {
+  color: var(--hl-string);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.number,
+pre[data-highlighter-theme][class*="language-"] .token.number {
+  color: var(--hl-number);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.function,
+pre[data-highlighter-theme][class*="language-"] .token.function {
+  color: var(--hl-function);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.variable,
+pre[data-highlighter-theme][class*="language-"] .token.variable {
+  color: var(--hl-variable);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.parameter,
+pre[data-highlighter-theme][class*="language-"] .token.parameter {
+  color: var(--hl-parameter);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.class-name,
+[data-highlighter-theme] pre[class*="language-"] .token.constant,
+[data-highlighter-theme] pre[class*="language-"] .token.builtin,
+pre[data-highlighter-theme][class*="language-"] .token.class-name,
+pre[data-highlighter-theme][class*="language-"] .token.constant,
+pre[data-highlighter-theme][class*="language-"] .token.builtin {
+  color: var(--hl-type);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.property,
+pre[data-highlighter-theme][class*="language-"] .token.property {
+  color: var(--hl-property);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.operator,
+pre[data-highlighter-theme][class*="language-"] .token.operator {
+  color: var(--hl-operator);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.punctuation,
+pre[data-highlighter-theme][class*="language-"] .token.punctuation {
+  color: var(--hl-punctuation);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.attr-name,
+[data-highlighter-theme] pre[class*="language-"] .token.attr-value,
+pre[data-highlighter-theme][class*="language-"] .token.attr-name,
+pre[data-highlighter-theme][class*="language-"] .token.attr-value {
+  color: var(--hl-annotation);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.important,
+[data-highlighter-theme] pre[class*="language-"] .token.regex,
+[data-highlighter-theme] pre[class*="language-"] .token.invalid,
+pre[data-highlighter-theme][class*="language-"] .token.important,
+pre[data-highlighter-theme][class*="language-"] .token.regex,
+pre[data-highlighter-theme][class*="language-"] .token.invalid {
+  color: var(--hl-error);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.omit,
+pre[data-highlighter-theme][class*="language-"] .token.omit {
+  color: var(--hl-unlabeled-parameter);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.interpolation-punctuation,
+pre[data-highlighter-theme][class*="language-"] .token.interpolation-punctuation {
+  color: var(--hl-interpolation-delimiter);
+}
+
+[data-highlighter-theme] pre[class*="language-"] .token.template-punctuation,
+pre[data-highlighter-theme][class*="language-"] .token.template-punctuation {
+  color: var(--hl-string-delimiter);
+}
+
+/* Tokens: Inline Code */
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.comment,
+code[data-inline-highlighter-theme]:not(pre code) .token.comment {
+  color: var(--inline-hl-comment);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.keyword,
+code[data-inline-highlighter-theme]:not(pre code) .token.keyword {
+  color: var(--inline-hl-keyword);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.string,
+code[data-inline-highlighter-theme]:not(pre code) .token.string {
+  color: var(--inline-hl-string);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.number,
+code[data-inline-highlighter-theme]:not(pre code) .token.number {
+  color: var(--inline-hl-number);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.function,
+code[data-inline-highlighter-theme]:not(pre code) .token.function {
+  color: var(--inline-hl-function);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.variable,
+code[data-inline-highlighter-theme]:not(pre code) .token.variable {
+  color: var(--inline-hl-variable);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.parameter,
+code[data-inline-highlighter-theme]:not(pre code) .token.parameter {
+  color: var(--inline-hl-parameter);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.class-name,
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.constant,
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.builtin,
+code[data-inline-highlighter-theme]:not(pre code) .token.class-name,
+code[data-inline-highlighter-theme]:not(pre code) .token.constant,
+code[data-inline-highlighter-theme]:not(pre code) .token.builtin {
+  color: var(--inline-hl-type);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.property,
+code[data-inline-highlighter-theme]:not(pre code) .token.property {
+  color: var(--inline-hl-property);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.operator,
+code[data-inline-highlighter-theme]:not(pre code) .token.operator {
+  color: var(--inline-hl-operator);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.punctuation,
+code[data-inline-highlighter-theme]:not(pre code) .token.punctuation {
+  color: var(--inline-hl-punctuation);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.attr-name,
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.attr-value,
+code[data-inline-highlighter-theme]:not(pre code) .token.attr-name,
+code[data-inline-highlighter-theme]:not(pre code) .token.attr-value {
+  color: var(--inline-hl-annotation);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.important,
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.regex,
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.invalid,
+code[data-inline-highlighter-theme]:not(pre code) .token.important,
+code[data-inline-highlighter-theme]:not(pre code) .token.regex,
+code[data-inline-highlighter-theme]:not(pre code) .token.invalid {
+  color: var(--inline-hl-error);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.omit,
+code[data-inline-highlighter-theme]:not(pre code) .token.omit {
+  color: var(--inline-hl-unlabeled-parameter);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.interpolation-punctuation,
+code[data-inline-highlighter-theme]:not(pre code) .token.interpolation-punctuation {
+  color: var(--inline-hl-interpolation-delimiter);
+}
+
+[data-inline-highlighter-theme] :not(pre) > code[class*="language-"] .token.template-punctuation,
+code[data-inline-highlighter-theme]:not(pre code) .token.template-punctuation {
+  color: var(--inline-hl-string-delimiter);
+}

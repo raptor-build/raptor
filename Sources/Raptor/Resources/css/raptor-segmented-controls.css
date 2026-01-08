@@ -1,0 +1,60 @@
+.segmented-control {
+    font-weight: 400;
+    font-size: var(--font-size);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    padding: 2px;
+    gap: 2px;
+    user-select: none;
+
+    background-color: var(--bg-secondary-blur);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+
+    /* Reserve font metrics for both weights */
+    font-synthesis: none;
+    font-display: swap;
+    text-rendering: optimizeLegibility;
+}
+
+/* Active button */
+.segmented-control button.segment.active {
+    background: var(--segmented-active-bg);
+    --font-weight: 600;
+    font-weight: var(--font-weight);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.segmented-control button.segment:hover:not(.active) {
+   background: transparent;
+}
+
+/* Pressed feedback */
+.segmented-control button.segment.btn:active {
+    background: var(--bg-tertiary);
+}
+
+/* Focus-visible for keyboard nav */
+.segmented-control button.segment:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Scoped reset for buttons */
+.segmented-control button.segment {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    padding: 8px 18px;
+    border-radius: 18px;
+    font-size: inherit;
+    font-weight: 400;
+    --fg: unset;
+    color: var(--fg);
+    line-height: 1.2;
+    transition: background 0.2s ease, color 0.2s ease; /* no font-weight transition */
+    background: transparent;
+    white-space: nowrap;
+}

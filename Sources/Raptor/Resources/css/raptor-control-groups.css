@@ -1,0 +1,232 @@
+/* =========================================================
+ CONTROL GROUP
+ ========================================================= */
+.ctrl-group {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 0;
+}
+
+/* =========================================================
+ INTERACTION STATES — MENU-DROPDOWN
+ ========================================================= */
+
+/* Remove hover background on entire group */
+.menu-dropdown .ctrl-group:hover {
+    background: transparent;
+}
+
+/* Focus-visible accessibility consistency */
+.menu-dropdown .ctrl-group button.btn:focus-visible {
+    outline: 2px solid AccentColor;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== CONTROL GROUP DIVIDER ===== */
+.ctrl-group hr {
+    border: none;
+    border-left: 1px solid var(--divider);
+    margin: 0 0.5rem;
+    width: 0;          /* prevents background fill */
+    height: auto;      /* stretch vertically */
+    align-self: stretch;
+}
+
+/* =========================================================
+ CONTROL GROUP — BORDER MERGE LOGIC (FINAL CLEAN VERSION)
+ ========================================================= */
+
+/* Reset stray borders on wrapper menus */
+.ctrl-group > .menu:not(.menu-dropdown) {
+    border: none;
+    /*  border-radius: 0 !important;*/
+}
+
+/* Base: non-first direct children lose left border */
+.ctrl-group.btn-bordered > *:not(:first-child) {
+    border-left: none;
+}
+
+/* Regular menu (single btn-menu) */
+.ctrl-group.btn-bordered > .menu:not(:first-child) > .btn-menu {
+    border-left: none;
+}
+.ctrl-group.btn-bordered > .menu:not(:last-child) > .btn-menu {
+    border-right: 1px solid var(--accent);
+}
+
+/* Menu-group (multi-button) */
+.ctrl-group.btn-bordered > .menu:not(:first-child) > .menu-group > *:first-child {
+    border-left: none;
+}
+.ctrl-group.btn-bordered > .menu:not(:last-child) > .menu-group > *:last-child {
+    border-right: 1px solid var(--accent);
+}
+/* Middle menu-groups */
+.ctrl-group.btn-bordered > .menu:not(:first-child):not(:last-child) > .menu-group > *:first-child {
+    border-left: none;
+}
+.ctrl-group.btn-bordered > .menu:not(:first-child):not(:last-child) > .menu-group > *:last-child {
+    border-right: 1px solid var(--accent);
+}
+
+/* Merge continuity between menus and controls */
+.ctrl-group.btn-bordered > .menu + * {
+    border-left: none;
+}
+
+/* =========================================================
+ CONTROL GROUP — CORNER RADIUS SYSTEM (FINAL CLEAN VERSION)
+ ========================================================= */
+
+/*/* Remove rounding between internal siblings */*/
+.ctrl-group:not(.menu-dropdown *) > :not(:first-child):not(:last-child) {
+    border-radius: 0;
+}
+
+/* Base flattening for single buttons and btn-menus */
+.ctrl-group > *:first-child,
+.ctrl-group > .menu:first-child > .btn-menu {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.ctrl-group > *:last-child,
+.ctrl-group > .menu:last-child > .btn-menu {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Menu-group (multi-button menus) */
+.ctrl-group > .menu:first-child > .menu-group > *:last-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.ctrl-group > .menu:last-child > .menu-group > *:first-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Normalize ctrl-group layout inside navbars */
+.navbar .ctrl-group,
+.navbar .ctrl-group * {
+    align-items: center;
+    vertical-align: middle;
+    line-height: normal;
+    height: auto;
+}
+
+/* Prevent flex stretching in nav-inner context */
+.nav-inner > li > .ctrl-group {
+    align-self: center;
+}
+
+/* =========================================================
+ CONTROL GROUP — SHAPE ON OUTER CORNERS (buttons + inputs)
+ Apply shape class to .ctrl-group (circle intentionally ignored)
+ ========================================================= */
+
+/* Radius tokens from shape utilities */
+.ctrl-group.ctrl-capsule { --group-radius: 9999px; }
+.ctrl-group.ctrl-rounded { --group-radius: 0.375rem; } /* default */
+.ctrl-group.ctrl-rect    { --group-radius: 0; }
+
+/* --- Direct children that are controls --- */
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> :is(button, .btn, input, .search-input, .search-button):first-child {
+    border-top-left-radius: var(--group-radius) !important;
+    border-bottom-left-radius: var(--group-radius) !important;
+}
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> :is(button, .btn, input, .search-input, .search-button):last-child {
+    border-top-right-radius: var(--group-radius) !important;
+    border-bottom-right-radius: var(--group-radius) !important;
+}
+
+/* --- Menu wrappers ------------------------------------------------------ */
+/* Single-button menu */
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> .menu:first-child > .btn-menu {
+    border-top-left-radius: var(--group-radius) !important;
+    border-bottom-left-radius: var(--group-radius) !important;
+}
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> .menu:last-child > .btn-menu {
+    border-top-right-radius: var(--group-radius) !important;
+    border-bottom-right-radius: var(--group-radius) !important;
+}
+
+/* Multi-button menu-group */
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> .menu:first-child > .menu-group > *:first-child {
+    border-top-left-radius: var(--group-radius) !important;
+    border-bottom-left-radius: var(--group-radius) !important;
+}
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> .menu:last-child > .menu-group > *:last-child {
+    border-top-right-radius: var(--group-radius) !important;
+    border-bottom-right-radius: var(--group-radius) !important;
+}
+
+/* --- Search-form wrappers ---------------------------------------------- */
+/* Left outer corner lives on input */
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> .search-form:first-child :is(.search-input, input):first-child {
+    border-top-left-radius: var(--group-radius) !important;
+    border-bottom-left-radius: var(--group-radius) !important;
+}
+/* Right outer corner lives on button */
+.ctrl-group:is(.ctrl-capsule, .ctrl-rounded, .ctrl-rect)
+> .search-form:last-child :is(.search-button, button):last-child {
+    border-top-right-radius: var(--group-radius) !important;
+    border-bottom-right-radius: var(--group-radius) !important;
+}
+
+/* =========================================================
+ CTRL-GROUP — FORCE INNER CORNERS FLAT (menus + inputs)
+ ========================================================= */
+
+/* Generic flattening */
+.ctrl-group > *:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.ctrl-group > *:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* --- Menu wrappers ------------------------------------------------------ */
+/* Single-button menu (.btn-menu) */
+.ctrl-group > .menu:not(:last-child) > .btn-menu {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.ctrl-group > .menu:not(:first-child) > .btn-menu {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Multi-button menu (.menu-group) */
+.ctrl-group > .menu:not(:last-child) > .menu-group > *:last-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.ctrl-group > .menu:not(:first-child) > .menu-group > *:first-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* --- Search-form wrappers ---------------------------------------------- */
+/* Flatten right edge when search-form not last */
+.ctrl-group > .search-form:not(:last-child)
+:is(.search-button, button):last-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+/* Flatten left edge when search-form not first */
+.ctrl-group > .search-form:not(:first-child)
+:is(.search-input, input):first-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

@@ -1,0 +1,347 @@
+/* ===== CONTAINER ===== */
+
+.container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 100%;
+}
+
+/* sm */
+@media (min-width: 575px) {
+    .container {
+        max-width: var(--content-max-width, 575px);
+        padding-inline: 2rem;
+    }
+}
+
+/* md */
+@media (min-width: 768px) {
+    .container {
+        max-width: var(--content-max-width, 768px);
+        padding-inline: 2rem;
+    }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+    .container {
+        max-width: var(--content-max-width, 1024px);
+        padding-inline: 2rem;
+    }
+}
+
+/* xl */
+@media (min-width: 1440px) {
+    .container {
+        max-width: var(--content-max-width, 1440px);
+        padding-inline: 2rem;
+    }
+}
+
+.img-resizable {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.ctrl-xs {
+    --ctrl-padding: 0.25em 0.5em;
+    --ctrl-font-size: 0.75em;
+    --ctrl-line-height: 1em;
+    --ctrl-gap: 0.25em;
+}
+
+.ctrl-sm {
+    --ctrl-padding: 0.375em 0.75em;
+    --ctrl-font-size: 0.875em;
+    --ctrl-line-height: 1.125em;
+    --ctrl-gap: 0.375em;
+}
+
+.ctrl-md {
+    --ctrl-padding: 0.5em 1em;
+    --ctrl-font-size: 1em;
+    --ctrl-line-height: 1.25em;
+    --ctrl-gap: 0.5em;
+}
+
+.ctrl-lg {
+    --ctrl-padding: 0.625em 1.25em;
+    --ctrl-font-size: 1.15em;
+    --ctrl-line-height: 1.375em;
+    --ctrl-gap: 0.5em;
+}
+
+.ctrl-xl {
+    --ctrl-padding: 0.75em 1.5em;
+    --ctrl-font-size: 1.25em;
+    --ctrl-line-height: 1.5em;
+    --ctrl-gap: 0.5em;
+}
+
+/* === Background Extension Effect === */
+.extend-bg {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+}
+
+.extend-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100dvw;
+  margin-inline: calc(50% - 50dvw);
+  background: inherit;
+  z-index: -1;
+}
+
+/* Fixed & Sticky Positioning (Bootstrap-compatible, no !important) */
+:where(.fixed-top) {
+  position: fixed;
+  top: var(--position-offset, 0);
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed, 1000);
+}
+
+:where(.fixed-bottom) {
+  position: fixed;
+  bottom: var(--position-offset, 0);
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed, 1000);
+}
+
+:where(.sticky-top) {
+  position: sticky;
+  top: var(--position-offset, 0);
+  z-index: var(--z-sticky, 900);
+}
+
+:where(.sticky-bottom) {
+  position: sticky;
+  bottom: var(--position-offset, 0);
+  z-index: var(--z-sticky, 900);
+}
+
+.vstack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.hstack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tapped {
+    cursor: pointer;
+}
+
+.container-relative {
+    display: grid;
+    overflow: hidden;
+}
+
+.screen-relative {
+  display: flex;
+}
+
+.frame-height,
+.frame-width {
+    display: grid;
+    overflow: hidden;
+}
+
+.frame-height > img {
+    display: block;
+    max-height: 100%;
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.justify-content-start {
+    justify-content: flex-start;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.align-self-start {
+    align-self: flex-start;
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+.align-self-end {
+    align-self: flex-end;
+}
+
+.align-items-start {
+    align-items: flex-start;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+/* Size */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+/* Object-fit */
+.object-fit-contain { object-fit: contain; }
+.object-fit-cover { object-fit: cover; }
+.object-fit-fill { object-fit: fill; }
+.object-fit-scale-down { object-fit: scale-down; }
+.object-fit-none { object-fit: none; }
+
+/* GAP (both axes) */
+.g-0 { gap: 0; }
+.g-1 { gap: 0.25rem; }
+.g-2 { gap: 0.5rem; }
+.g-3 { gap: 1rem; }
+.g-4 { gap: 1.5rem; }
+.g-5 { gap: 3rem; }
+
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+/* Base badge shape */
+.badge {
+    display: inline-block;
+    font-size: 0.75em;
+    line-height: 1;
+    padding: 0.35em 0.6em;
+    font-weight: 500;
+    vertical-align: baseline;
+}
+
+/* Shape variants */
+.badge-pill { border-radius: 999px; }
+
+/* Automatically uses theme accent colors */
+.badge-automatic {
+    background-color: var(--accent);
+    color: var(--fg-dm);
+}
+
+/* Soft background tint of the accent */
+.badge-subtle {
+    background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+}
+
+/* Outline-style badge based on accent */
+.badge-subtle-bordered {
+    background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--accent);
+}
+
+.label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--label-gap, 10px);
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ===== DISPLAY UTILITIES ===== */
+
+.d-inline {
+  display: inline;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.d-none {
+  display: none !important;
+}
+
+/* Removing text styling from a link. */
+.link-plain {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.link-plain:hover {
+    --fg: var(--accent);
+}
+
+.color {
+    width: 100%;
+    height: 100%;
+}
+
+/* Capsule */
+.ctrl-capsule,
+.ctrl-capsule input,
+.ctrl-capsule button {
+    --btn-corner-radius: 9999px;
+    --btn-corner-shape: round;
+    border-radius: var(--btn-corner-radius);
+    corner-shape: var(--btn-corner-shape);
+}
+
+/* Rounded Rectangle (default) */
+.ctrl-rounded,
+.ctrl-rounded input,
+.ctrl-rounded button {
+    --btn-corner-radius: 0.375rem;
+    --btn-corner-shape: superellipse(1.25);
+    border-radius: var(--btn-corner-radius);
+    corner-shape: var(--btn-corner-shape);
+}
+
+/* Square */
+.ctrl-rect,
+.ctrl-rect input,
+.ctrl-rect button {
+    --btn-corner-radius: 0;
+    --btn-corner-shape: rect;
+    border-radius: var(--btn-corner-radius);
+    corner-shape: var(--btn-corner-shape);
+}

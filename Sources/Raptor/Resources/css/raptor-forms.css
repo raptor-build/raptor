@@ -1,0 +1,170 @@
+/* ------------------------------------------
+   Raptor Form Layout — Leading Label Version
+   ------------------------------------------ */
+
+/* Form is a simple vertical block */
+.form {
+    display: block;
+    height: max-content;
+}
+
+/* ========== FIELD ROW ========== */
+
+/* Only leading-label layout uses 2-column per-field grid */
+.form.form-leading .form-field {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 1rem;
+    align-items: center;
+}
+
+.field-label {
+    line-height: 1;
+}
+
+/* Label is right-aligned and doesn't wrap */
+.field-label label {
+    font-size: 1rem;
+    white-space: nowrap;
+    text-align: right;
+}
+
+/* Input column */
+.form input,
+.form textarea {
+    min-height: 2.5em;
+    border: 1px solid var(--border, transparent);
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+
+.form button {
+    min-height: 2.5em;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 0 0.75em;
+}
+
+/* ========== BUTTON ALIGNMENT ========== */
+
+/* Button aligns with input ONLY in form-leading (flattened grid) */
+.form.form-leading > button {
+    grid-column: 2;
+    justify-self: start;
+    width: auto;
+}
+
+/* ------------------------------------------
+   Leading Form Style (full alignment)
+   ------------------------------------------ */
+
+.form.form-leading {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-row-gap: var(--form-field-spacing, 1rem);
+    align-items: center;
+}
+
+/* Each .field unwraps its children into the parent grid */
+.form.form-leading > .form-field {
+    display: contents;
+}
+
+/* Label column — right aligned */
+.form.form-leading .field-label {
+    text-align: right;
+}
+
+.form.form-leading .field-label label {
+    white-space: nowrap;
+    padding-right: 1rem;
+}
+
+/* Button aligns with inputs */
+.form.form-leading > button {
+    grid-column: 2;
+    justify-self: start;
+    width: auto;
+}
+
+/* ------------------------------------------
+   Raptor Form Layout — Top Label Version
+   ------------------------------------------ */
+
+.form.form-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--form-field-spacing, 1rem);
+}
+
+/* Field block */
+.form.form-top .form-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+/* Label above input */
+.form.form-top .field-label label {
+    font-size: 1rem;
+    white-space: normal;
+}
+
+/* Button aligns left with the inputs */
+.form.form-top > button {
+    align-self: flex-start;
+}
+
+.form.form-top > * {
+    width: 100%;
+}
+
+/* ------------------------------------------
+   FORM GRID LAYOUT (scoped, non-breaking)
+   ------------------------------------------ */
+
+.form.grid {
+    gap: var(--form-field-spacing, 1rem);
+}
+
+.form.grid .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Buttons auto-align to their grid cell */
+.form.grid > button {
+    justify-self: start;
+}
+
+.form.grid > * {
+    width: 100%;
+}
+
+/* Hide label visually and from layout */
+.field-label-hidden label,
+.form-hidden-labels .field-label label {
+    display: none;
+}
+
+/* Collapse field grid layout */
+form.grid.form-hidden-labels .field-label {
+    display: none;
+}
+
+.form-control::placeholder {
+    color: gray;
+    opacity: 1;
+}
+
+.subscribe-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--form-field-spacing, 1rem);
+}
