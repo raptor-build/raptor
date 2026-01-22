@@ -30,6 +30,10 @@ public enum LengthUnit: Hashable, Equatable, Sendable, CustomStringConvertible {
     ///   where `100` represents 100%.
     case percent(Double)
 
+    /// Relative to the font’s capital letter height (`cap`)
+    /// - Parameter value: The cap-height value.
+    case cap(Double)
+
     /// Relative to 1% of the viewport width (`vw`)
     case vw(Double)
 
@@ -70,6 +74,7 @@ public enum LengthUnit: Hashable, Equatable, Sendable, CustomStringConvertible {
         case .rem(let v): "\(v.formatted(.nonLocalizedDecimal))rem"
         case .em(let v): "\(v.formatted(.nonLocalizedDecimal))em"
         case .percent(let v): "\(v.formatted(.nonLocalizedDecimal))%"
+        case .cap(let v): "\(v.formatted(.nonLocalizedDecimal))cap"
         case .vw(let v): "\(v.formatted(.nonLocalizedDecimal))vw"
         case .vh(let v): "\(v.formatted(.nonLocalizedDecimal))vh"
         case .vmin(let v): "\(v.formatted(.nonLocalizedDecimal))vmin"
@@ -95,5 +100,8 @@ public enum LengthUnit: Hashable, Equatable, Sendable, CustomStringConvertible {
 
     /// Convenience initializer for integer percent values.
     public static func percent(_ value: Int) -> Self { .percent(Double(value)) }
+
+    /// Convenience initializer for integer cap-height values.
+    public static func cap(_ value: Int) -> Self { .cap(Double(value)) }
 }
 // swiftlint:enable identifier_name
