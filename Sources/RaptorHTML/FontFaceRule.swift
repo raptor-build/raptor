@@ -14,6 +14,7 @@ package struct FontFaceRule: Hashable, Equatable, Sendable {
     let weight: String
     let style: String
     let display: String
+    let sizeAdjust: String
     let ascent: String
     let descent: String
     let lineGap: String
@@ -24,6 +25,7 @@ package struct FontFaceRule: Hashable, Equatable, Sendable {
         weight: String = "normal",
         style: String = "normal",
         display: String = "swap",
+        sizeAdjust: String = "100%",
         ascent: String = "normal",
         descent: String = "normal",
         lineGap: String = "normal",
@@ -33,6 +35,7 @@ package struct FontFaceRule: Hashable, Equatable, Sendable {
         self.weight = weight
         self.style = style
         self.display = display
+        self.sizeAdjust = sizeAdjust
         self.ascent = ascent
         self.descent = descent
         self.lineGap = lineGap
@@ -46,6 +49,7 @@ package struct FontFaceRule: Hashable, Equatable, Sendable {
             font-weight: \(weight);
             font-style: \(style);
             font-display: \(display);
+            size-adjust: \(sizeAdjust);
             ascent-override: \(ascent);
             descent-override: \(descent);
             line-gap-override: \(lineGap);

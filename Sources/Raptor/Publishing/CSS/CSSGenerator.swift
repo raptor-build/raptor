@@ -325,6 +325,7 @@ package struct CSSGenerator: Sendable {
             source: source.url,
             weight: source.weight.description,
             style: source.variant.rawValue,
+            sizeAdjust: source.sizeAdjust,
             ascent: source.ascentOverride,
             descent: source.descentOverride,
             lineGap: source.lineGapOverride

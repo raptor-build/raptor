@@ -46,6 +46,9 @@ public struct FontSource: Hashable, Equatable, Sendable {
     /// The URL where the font file can be found, if it's a web font.
     let url: URL
 
+    /// Scales the font so it visually matches the size of the base font.
+    let sizeAdjust: String
+
     /// Optional ascent metrics override.
     let ascentOverride: String
 
@@ -60,6 +63,7 @@ public struct FontSource: Hashable, Equatable, Sendable {
     ///   - url: The URL where the font file can be found.
     ///   - weight: The weight of this font variant, defaulting to `.regular`.
     ///   - variant: The style of this font variant, defaulting to `.normal`.
+    ///   - sizeAdjustMetric: Optional scale factor to normalize this font’s visual size.
     ///   - ascentMetric: Optional ascent override percentage.
     ///   - descentMetric: Optional descent override percentage.
     ///   - lineGapMetric: Optional line-gap override percentage.
@@ -67,6 +71,7 @@ public struct FontSource: Hashable, Equatable, Sendable {
         url: URL,
         weight: Font.Weight = .regular,
         variant: Font.Variant = .normal,
+        scale sizeAdjustMetric: Double? = nil,
         ascent ascentMetric: Double? = nil,
         descent descentMetric: Double? = nil,
         lineGap lineGapMetric: Double? = nil
@@ -75,13 +80,15 @@ public struct FontSource: Hashable, Equatable, Sendable {
         self.variant = variant
         self.url = url
 
-        self.ascentOverride = percent(ascentMetric)
-        self.descentOverride = percent(descentMetric)
-        self.lineGapOverride = percent(lineGapMetric)
+        self.sizeAdjust = Self.resolveMetric(sizeAdjustMetric, default: "100%")
+        self.ascentOverride = Self.resolveMetric(ascentMetric, default: "normal")
+        self.descentOverride = Self.resolveMetric(descentMetric, default: "normal")
+        self.lineGapOverride = Self.resolveMetric(lineGapMetric, default: "normal")
+    }
 
-        func percent(_ value: Double?) -> String {
-            guard let value else { return "normal" }
-            return (value * 100).formatted(.number.precision(.fractionLength(0))) + "%"
-        }
+    /// Converts a percentage value to CSS, or returns the provided default when unspecified.
+    private static func resolveMetric(_ value: Double?, default defaultValue: String) -> String {
+        guard let value else { return defaultValue }
+        return (value * 100).formatted(.nonLocalizedDecimal) + "%"
     }
 }
