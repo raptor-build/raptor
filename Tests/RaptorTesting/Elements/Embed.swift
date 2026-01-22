@@ -26,7 +26,8 @@ struct EmbedTests {
         <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" \
         title="There was only ever going to be one video used here." \
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; \
-        gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
+        gyroscope; picture-in-picture; web-share; fullscreen" \
+        frameborder="0" class="w-100"></iframe>
         """)
     }
 }
