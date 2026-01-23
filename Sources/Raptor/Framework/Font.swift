@@ -88,16 +88,11 @@ public struct Font: Hashable, Equatable, Sendable {
     /// Creates a font with the specified properties.
     /// - Parameters:
     ///   - name: The name of the font family.
-    ///   - weight: The weight (boldness) of the font.
     ///   - sources: An array of font sources defining where the font files can be found.
-    public init(
-        name: String,
-        weight: Font.Weight = .regular,
-        sources: [FontSource] = []
-    ) {
+    public init(name: String, sources: [FontSource] = []) {
         self.name = name
         self.sources = sources
-        self.weight = weight
+        self.weight = nil
         self.size = nil
         self.style = nil
     }
