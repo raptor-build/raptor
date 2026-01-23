@@ -15,6 +15,7 @@ typealias PageBuilder = ElementBuilder<any Page>
 typealias PostPageBuilder = ElementBuilder<any PostPage>
 typealias PostWidgetBuilder = ElementBuilder<any PostWidget>
 typealias SiteThemeBuilder = ElementBuilder<any Theme>
+typealias FontSourceBuilder = ElementBuilder<FontSource>
 
 /// A result builder that lets us generically build arrays of some content.
 @resultBuilder

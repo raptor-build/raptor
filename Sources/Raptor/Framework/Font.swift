@@ -89,7 +89,8 @@ public struct Font: Hashable, Equatable, Sendable {
     /// - Parameters:
     ///   - name: The name of the font family.
     ///   - sources: An array of font sources defining where the font files can be found.
-    public init(name: String, sources: [FontSource] = []) {
+    @_disfavoredOverload
+    public init(name: String, sources: [FontSource]) {
         self.name = name
         self.sources = sources
         self.weight = nil
@@ -101,8 +102,8 @@ public struct Font: Hashable, Equatable, Sendable {
     /// - Parameters:
     ///   - name: The name of the font family.
     ///   - sources: A variadic list of font sources defining where the font files can be found.
-    public init(name: String, sources: FontSource...) {
-        self.init(name: name, sources: sources)
+    public init(name: String, @FontSourceBuilder sources: () -> [FontSource]) {
+        self.init(name: name, sources: sources())
     }
 
     /// Creates a font with a single web font source.

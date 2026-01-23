@@ -47,48 +47,67 @@ public struct FontSource: Hashable, Equatable, Sendable {
     let url: URL
 
     /// Scales the font so it visually matches the size of the base font.
-    let sizeAdjust: String
+    var sizeAdjust = "100%"
 
     /// Optional ascent metrics override.
-    let ascentOverride: String
+    var ascentOverride = "normal"
 
     /// Optional descent metrics override .
-    let descentOverride: String
+    var descentOverride = "normal"
 
-    /// Optional line-gap override (.
-    let lineGapOverride: String
+    /// Optional line-gap override.
+    var lineGapOverride = "normal"
 
     /// Creates a font source with a remote URL.
     /// - Parameters:
     ///   - url: The URL where the font file can be found.
     ///   - weight: The weight of this font variant, defaulting to `.regular`.
     ///   - variant: The style of this font variant, defaulting to `.normal`.
-    ///   - sizeAdjustMetric: Optional scale factor to normalize this font’s visual size.
-    ///   - ascentMetric: Optional ascent override percentage.
-    ///   - descentMetric: Optional descent override percentage.
-    ///   - lineGapMetric: Optional line-gap override percentage.
     public init(
         url: URL,
         weight: Font.Weight = .regular,
-        variant: Font.Variant = .normal,
-        scale sizeAdjustMetric: Double? = nil,
-        ascent ascentMetric: Double? = nil,
-        descent descentMetric: Double? = nil,
-        lineGap lineGapMetric: Double? = nil
+        variant: Font.Variant = .normal
     ) {
         self.weight = weight
         self.variant = variant
         self.url = url
+    }
+}
 
-        self.sizeAdjust = Self.resolveMetric(sizeAdjustMetric, default: "100%")
-        self.ascentOverride = Self.resolveMetric(ascentMetric, default: "normal")
-        self.descentOverride = Self.resolveMetric(descentMetric, default: "normal")
-        self.lineGapOverride = Self.resolveMetric(lineGapMetric, default: "normal")
+public extension FontSource {
+    /// Scales the font so its visual size aligns with the base font.
+    /// - Parameter scale: A unitless multiplier applied to the font’s metrics.
+    /// - Returns: A font source with the adjusted visual scale.
+    func scale(_ scale: Double) -> Self {
+        var copy = self
+        copy.sizeAdjust = LengthUnit.percent(scale).css
+        return copy
     }
 
-    /// Converts a percentage value to CSS, or returns the provided default when unspecified.
-    private static func resolveMetric(_ value: Double?, default defaultValue: String) -> String {
-        guard let value else { return defaultValue }
-        return (value * 100).formatted(.nonLocalizedDecimal) + "%"
+    /// Overrides the font’s ascent metric.
+    /// - Parameter scale: A unitless multiplier relative to the font’s em square.
+    /// - Returns: A font source with the overridden ascent metric.
+    func ascent(_ scale: Double) -> Self {
+        var copy = self
+        copy.ascentOverride = LengthUnit.percent(scale).css
+        return copy
+    }
+
+    /// Overrides the font’s descent metric.
+    /// - Parameter scale: A unitless multiplier relative to the font’s em square.
+    /// - Returns: A font source with the overridden descent metric.
+    func descent(_ scale: Double) -> Self {
+        var copy = self
+        copy.descentOverride = LengthUnit.percent(scale).css
+        return copy
+    }
+
+    /// Overrides the font’s line gap metric.
+    /// - Parameter scale: A unitless multiplier relative to the font’s em square.
+    /// - Returns: A font source with the overridden line gap metric.
+    func lineGap(_ scale: Double) -> Self {
+        var copy = self
+        copy.lineGapOverride = LengthUnit.percent(scale).css
+        return copy
     }
 }
