@@ -55,7 +55,7 @@ public struct ThemeConfiguration: Sendable {
         /// Uses an absolute width in points.
         case fixed(Double)
         /// Uses a proportional width relative to the viewport (0.0–1.0).
-        case proportional(Double)
+        case scaled(Double)
     }
 
     /// A font size value used in theme typography.
@@ -63,12 +63,12 @@ public struct ThemeConfiguration: Sendable {
         /// Sets an absolute size in points.
         case fixed(Double)
         /// Sets a size as an `em` multiplier relative to the parent font.
-        case proportional(Double)
+        case scaled(Double)
 
         var value: LengthUnit {
             switch self {
             case .fixed(let value): .px(value)
-            case .proportional(let multiplier): .rem(multiplier)
+            case .scaled(let multiplier): .rem(multiplier)
             }
         }
     }

@@ -224,7 +224,7 @@ public extension ThemeConfiguration {
         switch width {
         case .fixed(let value):
             copy.maxContentWidth = .px(value)
-        case .proportional(let value):
+        case .scaled(let value):
             copy.maxContentWidth = .vw(value * 100)
         }
         return copy
