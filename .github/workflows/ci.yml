@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-26
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: swift build
+    - name: Run tests
+      run: swift test -q
