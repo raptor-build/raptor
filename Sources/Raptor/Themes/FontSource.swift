@@ -58,7 +58,7 @@ public struct FontSource: Hashable, Equatable, Sendable {
     /// Optional line-gap override.
     var lineGapOverride = "normal"
 
-    /// Creates a font source with a remote URL.
+    /// Creates a source from a font located at the given URL.
     /// - Parameters:
     ///   - url: The URL where the font file can be found.
     ///   - weight: The weight of this font variant, defaulting to `.regular`.
@@ -71,6 +71,26 @@ public struct FontSource: Hashable, Equatable, Sendable {
         self.weight = weight
         self.variant = variant
         self.url = url
+    }
+
+    /// Creates a font source using a file located in `Assets/fonts/`.
+    /// - Parameters:
+    ///   - filename: The name of the font file located in the fonts directory.
+    ///   - weight: The weight of this font variant, defaulting to `.regular`.
+    ///   - variant: The style of this font variant, defaulting to `.normal`.
+    public init(
+        file filename: String,
+        weight: Font.Weight = .regular,
+        variant: Font.Variant = .normal
+    ) {
+        let path = "/fonts/\(filename)"
+        if let url = URL(string: path) {
+            self.init(url: url, weight: weight, variant: variant)
+        } else {
+            BuildContext.logError(.invalidFontFilename(filename))
+            // Avoids crashing or emitting a broken @font-face.
+            self.init(url: URL(static: "about:blank"))
+        }
     }
 }
 

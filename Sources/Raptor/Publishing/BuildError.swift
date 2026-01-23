@@ -79,6 +79,9 @@ package enum BuildError: LocalizedError, Hashable, Sendable, CustomStringConvert
     /// A build-only value was accessed outside of its valid context.
     case failedToReadContextValue(String)
 
+    /// An invalid font filename was provided when defining a font source.
+    case invalidFontFilename(String)
+
     /// Converts all errors to a string for easier reading.
     public var errorDescription: String? {
         switch self {
@@ -118,6 +121,8 @@ package enum BuildError: LocalizedError, Hashable, Sendable, CustomStringConvert
             "Failed to write \(filename) file."
         case .missingNamedLayout(let name):
             "Failed to find layout named \(name)."
+        case .invalidFontFilename(let filename):
+            "Failed to locate font file: \(filename)."
         case .missingPostWidget(let name):
             """
             Failed to find a post widget named \(name). \
