@@ -283,7 +283,7 @@ public struct Color: CustomStringConvertible, Equatable, Hashable, Sendable {
     }
 
     /// Returns the red component (0–255) if RGB or equivalent if P3; otherwise 0.
-    var red: Int {
+    public var red: Int {
         switch storage {
         case .rgb(let r, _, _, _): return r
         case .p3(let r, _, _, _): return Int(r * 255)
@@ -292,7 +292,7 @@ public struct Color: CustomStringConvertible, Equatable, Hashable, Sendable {
     }
 
     /// Returns the green component (0–255) if RGB or equivalent if P3; otherwise 0.
-    var green: Int {
+    public var green: Int {
         switch storage {
         case .rgb(_, let g, _, _): return g
         case .p3(_, let g, _, _): return Int(g * 255)
@@ -301,7 +301,7 @@ public struct Color: CustomStringConvertible, Equatable, Hashable, Sendable {
     }
 
     /// Returns the blue component (0–255) if RGB or equivalent if P3; otherwise 0.
-    var blue: Int {
+    public var blue: Int {
         switch storage {
         case .rgb(_, _, let b, _): return b
         case .p3(_, _, let b, _): return Int(b * 255)
@@ -310,7 +310,7 @@ public struct Color: CustomStringConvertible, Equatable, Hashable, Sendable {
     }
 
     /// Returns the opacity percentage (0–100%) for all color types.
-    var opacity: Int {
+    public var opacity: Int {
         switch storage {
         case .rgb(_, _, _, let o): return o
         case .p3(_, _, _, let o): return o
