@@ -14,13 +14,19 @@ import Raptor
 /// active, allowing rendering operations to behave as they would during a build.
 /// The environment is restored automatically when the closure returns.
 ///
-/// - Parameter body: A closure to execute within the test rendering environment.
-func withTestRenderingEnvironment<R>(_ body: () -> R) -> R {
-    let site = TestSite()
+/// - Parameters:
+///   - body: A closure to execute within the test rendering environment.
+///   - site: The site configuration used in the rendering
+///   environment. Defaults to `TestSite()`.
+func withTestRenderingEnvironment<R>(
+    site: any Site = TestSite(),
+    _ body: () -> R
+) -> R {
     let renderingContext = RenderingContext(
         site: site.context, posts: [],
         rootDirectory: URL(static: "dev/null"),
-        buildDirectory: URL(static: "dev/null"))
+        buildDirectory: URL(static: "dev/null")
+    )
 
     return BuildContext.withNewContext {
         RenderingContext.$current.withValue(renderingContext) {
@@ -38,15 +44,21 @@ func withTestRenderingEnvironment<R>(_ body: () -> R) -> R {
 /// allowing tests to interact with the rendering pipeline exactly as they
 /// would during a real build.
 ///
-/// - Parameter body: An asynchronous, throwing closure.
+/// - Parameters:
+///   - body: An asynchronous, throwing closure.
+///   - site: The site configuration used in the rendering
+///   environment. Defaults to `TestSite()`.
 /// - Returns: The value produced by the closure.
 /// - Throws: Any error thrown by the closure.
-func withTestRenderingEnvironment<R>(_ body: () async throws -> R) async throws {
-    let site = TestSite()
+func withTestRenderingEnvironment<R>(
+    site: any Site = TestSite(),
+    _ body: () async throws -> R
+) async throws {
     let renderingContext = RenderingContext(
         site: site.context, posts: [],
         rootDirectory: URL(static: "dev/null"),
-        buildDirectory: URL(static: "dev/null"))
+        buildDirectory: URL(static: "dev/null")
+    )
 
     try await BuildContext.withNewContext {
         _ = try await RenderingContext.$current.withValue(renderingContext) {
@@ -62,12 +74,17 @@ func withTestRenderingEnvironment<R>(_ body: () async throws -> R) async throws 
 /// for the duration of the closure, allowing tests to exercise
 /// rendering logic under conditions that match a real build.
 ///
-/// - Parameter body: A closure that receives the active `RenderingContext` and
+/// - Parameters:
+///   - body: A closure that receives the active `RenderingContext` and
 ///   returns a value.
+///   - site: The site configuration used in the rendering
+///   environment. Defaults to `TestSite()`.
 /// - Returns: The value produced by the closure, after restoring the
 ///   surrounding rendering environment.
-func withTestRenderingEnvironment<R>(_ body: (RenderingContext) -> R) -> R {
-    let site = TestSite()
+func withTestRenderingEnvironment<R>(
+    site: any Site = TestSite(),
+    _ body: (RenderingContext) -> R
+) -> R {
     let renderingContext = RenderingContext(
         site: site.context,
         posts: [],
