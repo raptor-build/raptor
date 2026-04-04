@@ -62,4 +62,20 @@ struct MainTests {
         let attributes = main.bodyAttributes
         #expect(attributes.data.contains(where: { $0.name == "test" && $0.value == "value" }))
     }
+
+    @Test("Assets exclude version query when site lacks version")
+    func excludesVersionQuery() {
+        withTestRenderingEnvironment {
+            let head = Head().render().string
+            #expect(!head.contains(#"/css/raptor-core.css?v="#))
+        }
+    }
+
+    @Test("Assets include version query when site has version")
+    func includesVersionQuery() {
+        withTestRenderingEnvironment(site: TestSite(version: "1.2.3")) {
+            let head = Head().render().string
+            #expect(head.contains("?v=1.2.3"))
+        }
+    }
 }

@@ -14,6 +14,7 @@ struct TestSite: Site, @unchecked Sendable {
     var titleSuffix = " - My Test Site"
     var url = URL(static: "https://www.example.com")
     var locales: [Locale] = [.english]
+    var version = ""
 
     var homePage = TestPage()
     var layout = EmptyLayout()
@@ -37,6 +38,10 @@ struct TestSite: Site, @unchecked Sendable {
 
     init(locale: Locale) {
         self.locales = [locale]
+    }
+
+    init(version: String) {
+        self.version = version
     }
 }
 
