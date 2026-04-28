@@ -2,7 +2,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/c7f37277-5a47-405b-b4f4-6be7b0625a61">
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/cd47c0ab-b675-42ad-a45f-309e730a3d17">
-  <img alt="Shows a black logo in light color mode and a white one in dark color mode." src="https://user-images.githubusercontent.com/25423296/163456779-a8556205-d0a5-45e2-ac17-42d089e3c3f8.png">
+  <img alt="Shows a black logo in light color mode and a white one in dark color mode." src="https://user-images.githubusercontent.com/25423296/163456779-a8556205-d0a5-45e2-ac17-42d089e3c3f8.png" width="450">
 </picture>
 </p>
 
@@ -11,77 +11,92 @@
 <p align="center">
    <img src="https://img.shields.io/badge/macOS-15.6+-2980b9.svg" />
    <img src="https://img.shields.io/badge/swift-6.2+-8e44ad.svg" />
+   <img src="https://img.shields.io/badge/docs-raptor.build-e24b4a.svg" />
 </p>
 
 ---
 
 ## What Is Raptor?
 
-Raptor is a Swift-first static site generator designed for developers who want the safety, structure, and expressiveness of Swift—without writing HTML or CSS.
+Raptor is a Swift static site generator that brings the SwiftUI developer experience to every nook and cranny of website creation—whether that's defining reusable components, building page layouts, or designing component-specific styles.
 
-Raptor provides a purpose-built API for generating websites at compile time. Its syntax will feel familiar if you’ve used SwiftUI, but it is not a SwiftUI-to-HTML converter. Instead, Raptor embraces the constraints of the web and models them explicitly in Swift.
+Raptor uses the latest Swift features and leverages advancements in vanilla HTML and CSS to generate modern, semantically correct websites. While its syntax mirrors SwiftUI, Raptor is not a SwiftUI-to-HTML converter. It's purpose-built for the web. As such, invalid layouts, missing content, and incompatible configurations are caught during compilation—not at runtime or in the browser.
 
-The result: fast builds, predictable output, and websites whose structure is validated by the compiler.
-
----
-
-## Design Philosophy
-
-Raptor is built around a few core principles:
-
-### 1. Swift, Not Templates
-Websites are authored entirely in Swift. Pages, layouts, and themes are expressed as types, not text files or templates.
-
-### 2. Compile-Time Structure
-Invalid layouts, missing content, and incompatible configurations are caught during compilation—not at runtime or in the browser.
-
-### 3. Separation by Default
-Content, structure, and presentation are distinct layers:
-- **Content** lives in Markdown
-- **Structure** lives in Swift
-- **Presentation** lives in themes and styles
-
-This keeps large sites maintainable as they grow.
-
-### 4. Web-Specific APIs
-Raptor borrows ideas from SwiftUI where they make sense, but its APIs are designed specifically for static site generation—not UI rendering.
+To get started, visit: https://raptor.build/getting-started.
 
 ---
 
 ## Core Capabilities
 
-- **Declarative page composition** using Swift
-- **Markdown posts** with YAML front matter
-- **Layout and theme systems** with light/dark support
-- **Localization** with locale-specific content
-- **Syntax highlighting** with configurable themes
-- **Post widgets** defined in Swift and embedded in Markdown
-- **Built-in site search**
-- **Optional Vapor integration** for server-side rendering
-- **Self-contained output** (no Bootstrap or external CSS frameworks)
-- **Strong type safety** across layouts and content
+- Websites authored **entirely in Swift**—no HTML, CSS, or JS required
+- **Compiler-enforced type safety** that ensures valid, well-formed output
+- Content publishing via Markdown posts with YAML front matter
+- Syntax highlighting with numerous configurations
+- Site-wide theming with light/dark support
 
-For a full breakdown of features and APIs, see the documentation at  
+---
+
+## What Sets Raptor Apart
+
+- Self-contained output with modern HTML and no reliance on external CSS frameworks
+- **Multilingual support** with automatic routing and locale-aware content
+- **Vapor integration** with server-side rendering, server actions, and property wrappers for server-side state
+- Swift components embeddable directly in Markdown posts
+- Built-in **site-wide search** powered by Lunr.js
+- **Flexible concurrency model** that allows views to run on any single actor
+- Dedicated style protocols for granular control of buttons, links, disclosures, and more
+- Decoupled themes and color schemes for flexible visual control
+- Scroll views with snap alignment, autoplay, and infinite marquee support
+- SwiftUI-inspired presentation APIs for modals and popovers
+- Hover effects, entry animations, and environment-driven effects
+- Newsletter subscription forms with support for Mailchimp, SendFox, Kit, and Buttondown
+- Cache-busting support to ensure stale assets can always be refreshed
+- Automated font registration
+- First-class documentation
+
+For a full breakdown of features and APIs, see the documentation at: <br>
 👉 **https://raptor.build**
 
 ---
 
 ## What Raptor Code Looks Like
 
-Pages and components are written using a declarative Swift syntax:
+Reusable components are defined like SwiftUI views:
 
 ```swift
-Text("SwiftUI for the web")
-   .font(.title1)
+struct FeaturedPost: HTML {
+    var post: Post
 
-Text(markdown: "Supports *inline* Markdown")
-   .foregroundStyle(.secondary)
+    var body: some HTML {
+        Text(post.title).font(.title2)
+        Text(post.description)
+        Link("Read More", destination: post)
+            .linkStyle(.button)
+    }
+}
+```
 
-Link("Learn Swift", destination: "https://www.swift.org")
-   .linkStyle(.button)
+Components compose into complete pages:
 
-Image("hero.jpg", description: "Site hero image")
-   .frame(maxHeight: 400)
+```swift
+struct MyPage: Page {
+    var title = "My Site"
+    @Environment(\.posts) private var posts
+
+    var body: some HTML {
+        Text("Welcome to My Site")
+            .font(.title1)
+
+        Text(markdown: "Built with **Raptor** and Swift.")
+
+        Link("Get Started", destination: "/getting-started")
+            .linkStyle(.button)
+
+        Grid(posts) { post in
+            FeaturedPost(post)
+        }
+    }
+}
 ```
 
 Layouts define structure independently of content:
@@ -94,129 +109,67 @@ struct MyLayout: Layout {
                .navigationItemRole(.logo)
        }
 
-       Main {
-           content
+       Main()
+           .margin(.bottom, 100)
+
+       Footer {
            SubscribeForm()
        }
    }
 }
 ```
 
-Interactive behavior is modeled declaratively:
+Themes define dynamic site-wide styling:
 
 ```swift
-Disclosure("Advanced Settings") {
-   Text("Configuration options here")
+struct MyTheme: Theme {
+    func theme(site: Content, colorScheme: ColorScheme) -> Content {
+        if colorScheme == .dark {
+            site.accent(.red)
+        } else {
+            site.accent(.blue)
+        }
+    }
 }
-
-Button("Subscribe", action: .showModal("newsletter"))
-   .buttonStyle(.primary)
 ```
 
----
-
-## Content with Markdown
-
-Markdown files are used for long-form content and posts, with YAML front matter for metadata:
-
-```yaml
----
-title: Welcome to Raptor
-date: 2026-01-07
-tags: swift, web, static-sites
----
-
-Your Markdown content here, with support for code blocks,
-images, and custom Swift-defined widgets.
-```
-
----
-
-## Project Structure
-
-A Raptor site follows a simple, conventional layout:
-
-```
-MySite/
-├── Assets/          # Images, fonts, static files
-├── Posts/           # Markdown content
-├── Sources/         # Swift code (pages, layouts, themes)
-│   └── Resources/   # Localized strings (optional)
-└── Build/           # Generated output
-```
-
-For multilingual sites, organize posts by locale:
-
-```
-Posts/
-├── en-us/
-│   └── welcome.md
-└── it/
-   └── welcome.md
-```
-
-This structure is created automatically when you generate a new site.
-
----
-
-## Getting Started
-
-Install the Raptor command-line tool:
-
-```bash
-git clone https://github.com/raptor-build/raptor
-cd raptor
-make
-make install
-```
-
-Create a new site:
-
-```bash
-raptor new MySite
-cd MySite
-open Package.swift
-```
-
-Build and preview your site:
-
-```bash
-raptor build
-raptor run --preview
-```
-
-The preview server is designed for an Xcode workflow—build with <kbd>Cmd+R</kbd>, then refresh your browser to see changes instantly.
-
-Detailed guides and workflows are available at  
-👉 **https://raptor.build/getting-started**
+Best practices and detailed guides are available at: <br>
+👉 https://raptor.build/getting-started
 
 ---
 
 ## Contributing
 
-Contributions are welcome and appreciated.
-
-- **Small improvements** (tests, documentation, comments, minor fixes) can be submitted directly.
-- **Larger changes** (features, refactors, behavioral changes) should begin with an issue to discuss approach and scope.
-
-Please spend time using Raptor before attempting significant contributions—understanding its design goals will lead to better results for everyone.
+Contributions are welcome and appreciated. Small improvements (tests, documentation, comments, minor fixes) can be submitted directly. Larger changes (features, refactors, behavioral changes) should begin with an issue to discuss approach and scope. Please spend time using Raptor before attempting significant contributions—understanding its design goals will lead to better results for everyone.
 
 ---
 
 ## Project Status
 
-Raptor is currently in **early beta**.
-
-The core architecture is stable, but some APIs may evolve as the project matures. During this period, we recommend pinning dependency versions when using Raptor in production.
+Raptor is currently in public beta. While young, the framework already includes most features on our roadmap. As a result, sweeping architectural changes are unlikely, and future development will focus on incremental improvements that complement developments in HTML and CSS.
 
 ---
 
-## License
+## Licensing
 
-Copyright (c) 2026 Raptor contributors. Raptor is licensed under MIT. See the [LICENSE](LICENSE) file for full details.
+Raptor is licensed under MIT, which, with a little attribution, gives programmers nearly limitless freedom in using its code. This includes using Raptor code in closed-source projects, open-source projects with different licenses (unmodified Raptor code remains MIT; code unique to the project follows the project-specific license), and SSGs that better suit their own needs. Such use will never be challenged or criticized by the Raptor community—Raptor has a zero-tolerance policy for bullying, intimidation, or gatekeeping open-source code.
+
+See the [LICENSE](LICENSE) file for full details.
 
 ---
 
 ## Acknowledgments
 
-This project builds on ideas and prior work from the Ignite project, which influenced its early development. Some portions of the implementation were adapted from that work and have since evolved. Portions derived from Ignite are licensed under the MIT License. See `LICENSES/IGNITE_LICENSE` for details.
+Raptor uses [Prism](https://github.com/prismjs/prism) for syntax highlighting, [Lunr.js](https://github.com/olivernn/lunr.js/) for search, [Bootstrap Icons](https://github.com/twbs/icons) for symbols, and builds upon its authors’ prior contributions to [Ignite](https://github.com/twostraws/ignite). These contributions include myriad modifiers, HTML elements, and bug fixes; features like site theming, environment-driven styling, and animations; and the very APIs responsible for its SwiftUI-like syntax—`@Environment` and the `HTML` protocol. That is, hundreds of hours of work that shaped Ignite’s current API and served as the launchpad for Raptor’s own.
+
+Consequently, Raptor employs a handful of Ignite’s models, type extensions, and tests without modification. They create a small foundation that supports Raptor’s distinct architecture: parameter packs and variadic generics, a rendering pipeline that integrates with Vapor and supports multiple languages, bespoke HTML/CSS/JS output devoid of Bootstrap, a concurrency model that uses task-local values, and Markdown-embeddable Swift views. An exhaustive list can be found in the documentation.
+
+All of the above projects are MIT licensed. Their licenses can be found in the `LICENSES` folder.
+
+---
+
+## Development Notes
+
+Early in development, we used Cursor to explore pair-programming with AI. However, as the framework’s reliance on advanced Swift features grew, the returns diminished. Ultimately, AI usage revolved around HTML/CSS/JS generation, drafting documentation, and assisting with select implementations. No part of the framework was vibe-coded or written by agents.
+
+Where AI fell short, these two articles bridged the gap: [SwiftUI under the Hood: Variadic Views](https://movingparts.io/variadic-views-in-swiftui) and [How to use VariadicView, SwiftUI's Private View API](https://www.emergetools.com/blog/posts/how-to-use-variadic-view). While we felt the commit log of Raptor’s development branch was too messy to showcase, we hope to share development insights through similar deep dives.
