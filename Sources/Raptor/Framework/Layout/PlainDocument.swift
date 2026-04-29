@@ -44,7 +44,14 @@ public struct PlainDocument: Document {
         var headMarkup = Markup()
         var bodyAttributes = CoreAttributes()
 
+        if let backgroundProperties = BuildContext.current.pageBackground?.styleProperties {
+            bodyAttributes.append(styles: backgroundProperties)
+        }
+
+        var schemeOverride: SystemColorScheme?
+
         if let main {
+            schemeOverride = main.colorScheme
             let mainMarkup = main.render()
             bodyMarkup += mainMarkup
             bodyAttributes = main.bodyAttributes
@@ -63,7 +70,7 @@ public struct PlainDocument: Document {
         }
 
         let body = Markup("<body\(bodyAttributes)>\(bodyMarkup.string)</body>")
-        let attributes = buildDocumentAttributes()
+        let attributes = buildDocumentAttributes(schemeOverride: schemeOverride)
 
         var output = "<!doctype html>"
         output += "<html\(attributes)>"
@@ -91,7 +98,9 @@ public struct PlainDocument: Document {
 
     /// Builds the root HTML attributes for the document.
     /// - Returns: A configured set of attributes for the `<html>` element.
-    private func buildDocumentAttributes() -> CoreAttributes {
+    private func buildDocumentAttributes(
+        schemeOverride: SystemColorScheme?
+    ) -> CoreAttributes {
         var attributes = CoreAttributes()
 
         let defaultLocale = renderingContext.defaultLocale
@@ -104,16 +113,24 @@ public struct PlainDocument: Document {
             attributes.append(dataAttributes: .init(name: "theme", value: defaultTheme.cssID))
         }
 
-        if site.colorScheme != .automatic {
+        let siteScheme = renderingContext.site.colorScheme
+
+        let systemScheme: SystemColorScheme? = {
+            switch siteScheme {
+            case .light: return .light
+            case .dark: return .dark
+            case .automatic: return nil
+            }
+        }()
+
+        let effectiveScheme = schemeOverride ?? systemScheme
+
+        if let effectiveScheme {
             attributes.append(dataAttributes: .init("lock-scheme"))
             attributes.append(dataAttributes: .init(
                 name: "color-scheme",
-                value: site.colorScheme.rawValue
+                value: effectiveScheme.rawValue
             ))
-        }
-
-        if let backgroundProperties = BuildContext.current.pageBackground?.styleProperties {
-            attributes.append(styles: backgroundProperties)
         }
 
         return attributes

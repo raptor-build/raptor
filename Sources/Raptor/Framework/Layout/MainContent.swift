@@ -57,6 +57,9 @@ public struct Main: Region {
     /// The metadata section of the document.
     var head = Head()
 
+    /// The preferred color scheme of the page
+    var colorScheme: SystemColorScheme?
+
     /// Creates a `Main` instance using the specified HTML builder.
     /// - Parameter content: The HTML builder closure that produces the main content.
     public init(@HTMLBuilder _ content: () -> some HTML) {
