@@ -30,7 +30,7 @@ public struct PlainDocument: Document {
         self.regions = content()
     }
 
-    public func render() -> Markup {
+    public func render(withRTL : Bool = false) -> Markup {
         let main = firstRegion(typed: Main.self)
         let banner = firstRegion(typed: Banner.self)
         let navigation = firstRegion(typed: Navigation.self)
@@ -43,7 +43,6 @@ public struct PlainDocument: Document {
 
         var headMarkup = Markup()
         var bodyAttributes = CoreAttributes()
-
         if let backgroundProperties = BuildContext.current.pageBackground?.styleProperties {
             bodyAttributes.append(styles: backgroundProperties)
         }
@@ -70,8 +69,14 @@ public struct PlainDocument: Document {
         }
 
         let body = Markup("<body\(bodyAttributes)>\(bodyMarkup.string)</body>")
-        let attributes = buildDocumentAttributes(schemeOverride: schemeOverride)
+        var attributes = buildDocumentAttributes(schemeOverride: schemeOverride)
 
+        //By just adding an RTL style to the HTML tag, the entire
+        //page will be rendered in RTL direction
+        if withRTL{
+             attributes.append(styles: .direction(.rightToLeft))
+        }
+        
         var output = "<!doctype html>"
         output += "<html\(attributes)>"
         output += headMarkup.string

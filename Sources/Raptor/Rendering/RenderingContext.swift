@@ -173,14 +173,22 @@ package struct RenderingContext: Sendable {
             allContent: posts,
             pageMetadata: metadata
         )
-
+        
+        //Rending the page
+        
+        //We first check if the current locale is a RTL language
+        var withRTL = false
+        if updated.environment.locale.isRTL{
+            withRTL = true
+        }
+        
         updated.pageMarkup = RenderingContext.$current.withValue(updated) {
             page.body.markupString()
         }
 
         // Render layout wrapping
         let outputHTML = RenderingContext.$current.withValue(updated) {
-            layout.body.markupString()
+            layout.body.markupString(withRTL: withRTL)
         }
 
         // Optional search metadata
