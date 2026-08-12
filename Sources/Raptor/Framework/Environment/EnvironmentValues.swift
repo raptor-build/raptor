@@ -27,6 +27,9 @@ public struct EnvironmentValues: Sendable {
     /// Available themes for the site, including light, dark, and any alternates.
     public var themes: [any Theme]
 
+    /// Writing direction for the current locale
+    public var writingDirection : WritingDirection { locale.writingDirection }
+    
     /// Locates, loads, and decodes a JSON file in your Resources folder.
     public var decode: DecodeAction
 
@@ -63,6 +66,7 @@ public struct EnvironmentValues: Sendable {
         self.page = .empty
         self.site = .empty
         self.homePath = "/"
+        
     }
 
     package init(
