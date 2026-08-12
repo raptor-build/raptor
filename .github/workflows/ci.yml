@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-26
 
     steps:
@@ -17,3 +16,15 @@ jobs:
       run: swift build
     - name: Run tests
       run: swift test -q
+
+  ios-build:
+    runs-on: macos-26
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build RaptorVapor for iOS
+      run: |
+        swift build \
+          --triple arm64-apple-ios18.0 \
+          --sdk "$(xcrun --sdk iphoneos --show-sdk-path)" \
+          --target RaptorVapor

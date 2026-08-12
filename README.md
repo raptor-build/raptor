@@ -9,6 +9,7 @@
 <h2 align="center">a Swift framework for static sites and server-side rendering</h2>
 
 <p align="center">
+   <img src="https://img.shields.io/badge/iOS-18.0+-2980b9.svg" />
    <img src="https://img.shields.io/badge/macOS-15.6+-2980b9.svg" />
    <img src="https://img.shields.io/badge/swift-6.2+-8e44ad.svg" />
    <img src="https://img.shields.io/badge/docs-raptor.build-e24b4a.svg" />
